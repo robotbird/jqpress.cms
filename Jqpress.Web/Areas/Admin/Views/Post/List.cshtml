@@ -1,0 +1,118 @@
+﻿@using Jqpress.Framework.Mvc
+@model Jqpress.Web.Areas.Admin.Models.PostListModel
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "文章列表 - 管理中心 - Powered by Jqpress";
+}
+<script type="text/javascript">
+    $(document).ready(function () {
+        ///全选
+        $("#checkAll").click(function () {
+            if (this.checked) {
+                $("input[name='chkid']").attr("checked", true);
+            } else {
+                $("input[name='chkid']").attr("checked", false);
+            }
+        });
+        ///批量操作
+        $("#doaction").click(function () {
+            var chkid = $("input[name='chkid']");
+            var strid = "";
+            $.each(chkid, function (i, n) { if (n.checked) { strid = strid + (n.value) + ","; } });
+            if (strid != "") {
+                $.ajax({
+                    type: "GET",
+                    url: '@Url.Action("Deletes", "Post")',
+                    data: "action=" + $("#selectact").val() + "&strid=" + strid,
+                    success: function (msg) { $.each(chkid, function (i, n) { if (n.checked) { $("#post" + n.value).hide(600); } }); }
+                });
+            }
+        });
+
+    });
+</script>
+   
+
+<!-- BEGIN PAGE HEADER-->
+<div class="row">
+<div class="col-md-12">
+    <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+    <h3 class="page-title">
+        文章 <small><a href="@Url.Action("Edit", "Post")" class="btn btn-sm btn-link">添加 <i class="icon-plus"></i></a></small>
+    </h3>
+    <!-- END PAGE TITLE & BREADCRUMB-->
+</div>
+</div>
+<!-- END PAGE HEADER-->
+        
+ <div class="portlet-body">
+
+ <form class="search-form" role="form" method="get" action="@Url.Action("List", "Post")">
+       <div class="table-toolbar">
+           
+          <div class="btn-group" >
+                    <button type="button" class="btn btn-default" id="doaction">批量删除</button>
+          </div>
+          <div class="btn-group">
+           	        <input type="text" name="keyword" id="keyword" placeholder="标题" value="" class="form-control" style="width:180px;"/>
+           </div>
+
+           <div class="btn-group">
+                    <button type="submit" class="btn  btn-default" onclick="query()"><i class="icon-search"></i></button>
+            </div>    
+        </div>
+                     <table class="table table-striped table-bordered table-hover" id="sample_1">
+                        <thead>
+                           <tr>
+                              <th class="table-checkbox"><input type="checkbox" class="group-checkable" data-set="#sample_1 .checkboxes" /></th>
+                             <th>标题</th>
+			                <th>评论/浏览</th>
+			                <th>日期</th>
+			                <th>分类</th>
+			                <th>标签</th>
+			                <th>操作</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+
+                              @foreach (var item in Model.PostList)
+                             {
+		                              <tr id="post@(item.PostId)" class="odd gradeX">
+			                            <td><input type="checkbox" name="chkid" value="@item.PostId" /> </td>
+			                            <td>
+			                            [@(new HtmlString(item.Author.Link))]
+			                            @(new HtmlString(item.Link))
+                                        @item.StatusStr 
+                                        @item.HideStr
+			                            </td>
+			                            <td>@item.CommentCount/@item.ViewCount</td>
+			                            <td class="center">@item.PostTime.ToString("yyyy-MM-dd")</td>
+			                            <td>@(new HtmlString(item.Category.Link))</td>
+			                            <td>@(new HtmlString(item.Tags.Aggregate(string.Empty, (current, t) => current + (t.Link + ",")).TrimEnd(',')))</td>
+			                            <td>
+			  	                            <span><a href="edit?id=@item.PostId"> 编辑 </a></span>
+				                            <span><a onclick="return confirm('删除文章同时会删除该文章的相关评论,确定要删除吗?');" href="delete?id=@item.PostId"> 删除</a></span>
+		                                </td>
+		                              </tr>
+                             }
+                        </tbody>
+                     </table>
+                      </form>
+  </div>
+         
+
+
+<div id="pager"><ul class="pagination">@Html.Pager(Model.PageList).ShowIndividualPages(true)</ul> </div>
+
+
+   <script type="text/javascript" src="/assets/plugins/data-tables/jquery.dataTables.js"></script>
+   <script type="text/javascript" src="/assets/plugins/data-tables/DT_bootstrap.js"></script>
+      <script src="/assets/scripts/app.js"></script>
+   <script src="/assets/scripts/table-managed.js"></script>     
+   <script>
+       jQuery(document).ready(function () {
+           App.init();
+           TableManaged.init();
+       });
+   </script>
+

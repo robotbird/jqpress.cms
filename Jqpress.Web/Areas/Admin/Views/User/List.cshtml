@@ -1,0 +1,172 @@
+﻿@using Jqpress.Framework.Mvc
+@model Jqpress.Web.Areas.Admin.Models.UserListModel
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "用户列表 - 管理中心 - Powered by Jqpress";
+}
+<script type="text/javascript">
+    $(document).ready(function () {
+        ///全选
+        $("#checkAll").click(function () {
+            if (this.checked) {
+                $("input[name='chkid']").attr("checked", true);
+            } else {
+                $("input[name='chkid']").attr("checked", false);
+            }
+        });
+
+    });
+
+    //修改操作
+    function getJsonData(id) {
+        $.getJSON('@Url.Action("Edit", "User",new{dt=DateTime.Now})',{id:id}, function (json) {
+            $("#UserName").val(json.UserName);
+            $("#NickName").val(json.NickName);
+            $("#Password").val("");
+            $("#Password2").val("");
+            $("#Email").val(json.Email);
+            $("#UserId").val(json.UserId);
+            $("input[name='Status']").attr("checked", json.Status ==1? true:false);
+            $("#submit").val("修改");
+            $(".formzone").show("slow");
+        });
+    }
+    //删除操作
+    function deleteRow(id) {
+        if (confirm('确定要删除此用户吗?')) {
+            $.ajax({
+                url: '@Url.Action("Delete", "User",new{dt=DateTime.Now})',
+                data: { id: id },
+                success: function (msg) {
+                    $("#row" + id).fadeOut(500);
+                }
+            });
+        }
+    }
+
+    $(document).ready(function () {
+        //初始化表单
+        function InitForm() {
+            $(':text').each(function (i, n) { n.value = ''; });
+            $('#UserId').each(function (i, n) { n.value = ''; });
+            $("#submit").val("添加");
+        }
+
+        //添加事件
+        $("#addbtn").click(function () {
+            if ($(".formzone").css("display") == "none") {
+                InitForm();
+                $(".formzone").show("slow");
+            } else {
+                $(".formzone").hide("slow");
+            }
+        });
+        //绑定删除事件
+        $(".row td .delete").bind("click", function () { deleteRow(this.id); });
+        //绑定修改事件
+        $(".row td .edit").bind("click", function () { getJsonData(this.id) });
+
+        //取消事件
+        $("#btncancle").click(function () {
+            if ($(".formzone").css("display") == "none") {
+                InitForm();
+                $(".formzone").show("slow");
+            } else {
+                $(".formzone").hide("slow");
+            }
+        });
+        //保存事件
+        $('#form1').submit(function () {
+            if ($("#UserName").val() == '') { return; }
+            var act = "add";
+            if ($("#UserId").val() != '') { act = "update"; }
+
+            jQuery.ajax({
+                type: 'POST', // 设置请求类型为 ‘POST’，默认为 ‘GET’
+                url: '@Url.Action("Save", "User",new{dt=DateTime.Now})', //
+                data: $('#form1').serialize(), // 从表单中获取数据  
+                beforeSend: function () { },
+                error: function (XMLHttpRequest, textStatus, errorThrown) { alert(textStatus); },
+                dataType: 'json',
+                success: function (data) {
+                    if (data.UserId == undefined) { alert(data); return; }
+
+                    var _tr = "<tr class='row' style='background:#FFECC6' id='row" + data.UserId + "'>";
+                    _tr += " <td>" + data.Link + "</td>";
+                    _tr += " <td>" + data.PostCount + "/" + data.CommentCount + "</td>";
+                    _tr += " <td>" + (data.Status == "1" ? "可用" : "不可用") + "</td>";
+                    _tr += " <td>" + data.RoleDisplay + "</td>";
+                    _tr += "<td><a class='edit' href='javascript:getJsonData(" + data.UserId + ")' id='" + data.UserId + "'>编辑</a> <a class='delete' href='javascript:deleteRow(" + data.UserId + ")'  id='" + data.UserId + "'>删除</a></td>";
+                    _tr += "</tr>";
+                    InitForm();
+                    $(".formzone").hide("slow");
+
+                    if (act == "update") {
+                        $("#row" + data.UserId).replaceWith(_tr);
+                    } else {
+                        $("#sample_1").append(_tr);
+                        $(".total strong").text(parseInt($(".total strong").text()) + 1)
+                    }
+
+                }
+            });
+            return false;
+        });
+
+
+    });
+ 
+</script>
+
+<!-- BEGIN PAGE HEADER-->
+<div class="row">
+<div class="col-md-12">
+    <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+    <h3 class="page-title">
+        用户管理 <small><a href="@Url.Action("Edit", "User")" class="btn btn-sm btn-link">添加 <i class="icon-plus"></i></a></small>
+    </h3>
+    <!-- END PAGE TITLE & BREADCRUMB-->
+</div>
+</div>
+<!-- END PAGE HEADER-->
+ @Html.JPartial("_Notifications")
+ <form id="form1" action="">
+
+
+    <table class="table table-striped table-bordered table-hover" id="sample_1">
+                        <thead>
+                           <tr>
+                              <th class="table-checkbox"><input type="checkbox" class="group-checkable" data-set="#sample_1 .checkboxes" /></th>
+                            <th>用户名</th>
+                            <th>昵称</th>
+                            <th>文章/评论</th>
+                            <th>状态</th>
+                            <th>角色</th>
+                            <th>操作</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+
+                              @foreach (var item in Model.UserList)
+                             {
+		                              <tr id="post@(item.UserId)" class="odd gradeX">
+			                            <td><input type="checkbox" name="chkid" value="@item.UserId" /> </td>
+			                            <td>
+			                               @(item.UserName)
+			                            </td>
+                                        <td>
+			                               @(item.NickName)
+			                            </td>
+			                            <td> @(item.PostCount)/@item.CommentCount</td>
+			                            <td>@(item.Status==1?"可用":"不可用")</td>
+			                            <td>@item.RoleDisplay</td>
+			                            <td>
+			  	                              	<span><a href="edit?id=@item.UserId"> 编辑 </a></span>
+				                               <span><a  onclick="return confirm('删除用户不删除对应的文章,确定要删除吗?');" href="delete?id=@item.UserId"> 删除</a></span>
+                                        </td>
+		                              </tr>
+                             }
+                        </tbody>
+                     </table>
+
+</form>

@@ -1,0 +1,219 @@
+﻿@using Jqpress.Framework.Mvc
+@model Jqpress.Web.Areas.Admin.Models.FilesModel
+@{
+    ViewBag.Title = "文件管理 - 管理中心 - Powered by Jqpress";
+  }
+
+  <!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+
+    <title>@ViewBag.Title</title>
+
+   <meta charset="utf-8" />
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+   <meta content="" name="description" />
+   <meta content="" name="author" />
+   <meta name="MobileOptimized" content="320">
+   <!-- BEGIN GLOBAL MANDATORY STYLES -->          
+   <link href="/assets/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+   <link href="/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+   <link href="/assets/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
+   <!-- END GLOBAL MANDATORY STYLES -->
+   <!-- BEGIN PAGE LEVEL STYLES -->
+   <link rel="stylesheet" href="/assets/plugins/data-tables/DT_bootstrap.css" />
+   <!-- END PAGE LEVEL STYLES -->
+   <!-- BEGIN THEME STYLES --> 
+   <link href="/assets/css/style-responsive.css" rel="stylesheet" type="text/css"/>
+   <link href="/assets/css/custom.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" type="text/css" href="/assets/plugins/bootstrap-fileupload/bootstrap-fileupload.css" />
+  <link rel="stylesheet" type="text/css" href="/assets/plugins/jquery-multi-select/css/multi-select.css" />
+  <style type="text/css">  
+ body{color:#000;font-family:'微软雅黑',sans-serif;padding:0px !important;margin:0px !important;font-size:13px;direction:ltr;}
+ a{text-shadow:none !important;color:#0d638f;}
+ a{color:#428bca;text-decoration:none;}
+ a,a:focus,a:hover,a:active{outline:0;}
+ li{ list-style:none;}
+ .imgright{width:200px;float:right;border:0px solid gray;margin-top:0px;}
+ .imgright p{margin:10px 0 0 10px;}
+ .imgleft{float:left;}
+ .upfile{margin:0px;padding:0px}
+ .upfile li{float:left;margin:5px 3px 25px 0;width:90px;height:88px;border:0px solid #ccc;text-align:center;}
+ .upfile .current{background:#f3f9f5;}
+ .upfile p{margin:3px 0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;line-height:150%;}
+ .upfile a{width:48px;height:48px;}
+ .upfile img{border:0px solid #ccc;}
+ .upfile .delete{position:relative;width:20px;height:20px;top:-92px;right:-40px;border:0px solid gray;color:Gray;font-size:10px;}
+</style>
+   <!-- END THEME STYLES -->
+   
+</head>
+<!-- END HEAD -->
+<!-- BEGIN BODY -->
+<body>
+
+<div style=" margin:0px auto; border-bottom:1px #ccc solid; height:50px">
+<div style="float:left">当前位置：@Html.Raw(Model.PathUrl) </div>
+
+<div style=" float:right; margin-right:50px">
+<form name="fileForm"  target="_self"  action="@Url.Action("Upload", "Files", new { path = ViewBag.path })" method="post"  id="fileForm" enctype="multipart/form-data">
+
+ <button type="submit" name="btnEdit"  class="btn btn-primary" style="float:right" >上传</button>
+
+<div class="fileupload fileupload-new" data-provides="fileupload" style="float:right">
+        <span class="btn btn-default btn-file">
+        <span class="fileupload-new"><i class="icon-paper-clip"></i> 选择文件</span>
+        <span class="fileupload-exists"><i class="icon-undo"></i> 重新选择</span>
+        <input type="file" class="default" name="FileUpload" id="FileUpload" onchange="checkSize(this)" />
+        </span>
+        <span class="fileupload-preview" style="margin-left:5px;"></span>
+        <a href="#" class="close fileupload-exists" data-dismiss="fileupload" style="float: none; margin-left:5px;"></a>
+  </div>   
+
+   <div id="folderName" style="display:none;float:right"><input type="text" name="txtfolder" id="txtfolder" class="form-control" style="width:100px" /> </div>
+
+   <button type="button" name="btnHidFolder" id="btnHidFolder"  class="btn btn-default" onclick="showFolder(0)"  style="display:none" >取消</button>
+   <button type="button" name="btnNewFolder" id="btnNewFolder" class="btn btn-primary" onclick="showFolder(1)"  >新建文件夹</button>
+
+   <script type="text/javascript">
+       function showFolder(f) {
+           var ishid = $("#folderName").is(":hidden");
+           if (ishid) {
+               $("#folderName").show();
+               $("#btnHidFolder").show();
+               $("#btnNewFolder").text("确定");
+           } else if (f == 1) {
+               var folder = $("#txtfolder").val();
+               createFolder(folder);
+           } else if (f == 0) {
+               $("#folderName").hide();
+               $("#btnHidFolder").hide();
+               $("#btnNewFolder").text("新建文件夹");
+           }
+       }
+       function createFolder(folderName) {
+           if (folderName == "") {
+               alert("名称不能为空");
+               return;
+           }
+           $.get("/admin/files/createfolder", { folder: folderName }, function (msg) {
+               alert(msg);
+               setTimeout(window.location.href = "/admin/files/list",1000);
+           });
+       }
+   </script>
+</form>
+</div>
+
+</div>
+
+<div class="imgleft" >
+    <ul class="upfile">
+        @foreach (var d in Model.FoldList)
+        {
+        <li>
+            <a href="@ViewBag.UrlPath?path=@d.FoldPath/@d.FoldName" title="点击打开此文件夹"><img src="/content/images/folder.png"  alt="点击打开此文件夹" width="48" height="48"/></a>
+             <p class="small">
+                <span title="文件夹:@d.FoldName" >@d.FoldName</span>
+                <br />
+                <span class="gray">
+                @d.FileSystemInfosLength 个文件
+                </span>
+             </p>
+        <a class="delete" href="/admin/files/DeleteFile?path=@ViewBag.path/@d.FoldName&url=@ViewBag.path"  title="删除" onclick=" return confirm('确定要删除 @d.FoldName  吗?');">X</a>
+        </li>
+        } 
+
+     @foreach (var f in Model.FileList)
+     {
+        <li>
+             <a href="@f.FileUrl" target="_blank" onclick=" return returnValue('@f.FileUrl','@f.Extension');">
+                <img src="@f.FileUrl" width="48" height="48"/>
+             </a>
+                <p class="small">
+                <span title="@f.FileName" >@f.FileName</span>
+                <br />
+                <span class="gray">@f.FileLength</span>
+                </p>
+        <a class="delete" href="/admin/files/DeleteFile?path=@f.FilePath&url=@ViewBag.path"  title="删除" onclick=" return confirm('确定要删除 @f.FileName  吗?');">X</a>
+        </li>
+        
+     } 
+    
+    @if (Model.FileList.Count == 0 && Model.FoldList.Count ==0)
+    { <p>还没有上传任何附件!</p> }
+    </ul>
+ 
+         <div style="clear:both;text-align:center;">
+        @if (Model.FileList.Count == 0)
+        {
+          @Html.Pager(Model.FoldPageList)
+        } 
+          </div>
+</div>
+
+   <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
+   <!-- BEGIN CORE PLUGINS -->   
+   <!--[if lt IE 9]>
+   <script src="/assets/plugins/respond.min.js"></script>
+   <script src="/assets/plugins/excanvas.min.js"></script> 
+   <![endif]-->   
+   <script src="/assets/plugins/jquery-1.10.2.min.js" type="text/javascript"></script>
+   <script src="/assets/plugins/jquery-migrate-1.2.1.min.js" type="text/javascript"></script> 
+   <script src="/assets/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+   <script src="/assets/plugins/bootstrap-hover-dropdown/twitter-bootstrap-hover-dropdown.min.js" type="text/javascript" ></script>
+   <script src="/assets/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+   <script src="/assets/plugins/jquery.blockui.min.js" type="text/javascript"></script>  
+   <script src="/assets/plugins/jquery.cookie.min.js" type="text/javascript"></script>
+   <script src="/assets/plugins/uniform/jquery.uniform.min.js" type="text/javascript" ></script>
+   <!-- END CORE PLUGINS -->
+   <!-- BEGIN PAGE LEVEL PLUGINS -->
+   <script type="text/javascript" src="/assets/plugins/data-tables/DT_bootstrap.js"></script>
+   <script type="text/javascript" src="/assets/plugins/bootstrap-fileupload/bootstrap-fileupload.js"></script>
+   <!-- END PAGE LEVEL PLUGINS -->
+   <!-- BEGIN PAGE LEVEL SCRIPTS -->
+   <script type="text/javascript" src="/assets/scripts/app.js"></script>
+    <script type="text/javascript">
+        jQuery(document).ready(function () {
+            App.init();
+        });
+
+          
+   </script>
+  
+                  
+
+
+<script type="text/javascript">
+
+    function returnValue(fileUrl, fileExtension) {
+
+    if(window.opener!=undefined){
+       window.opener.document.getElementById("src").value=fileUrl;
+       window.close();
+       return false;
+    }else{
+        parent.addFileToEditor(fileUrl,fileExtension) ;
+        parent.modalClose();
+        return false;
+    }
+
+}
+
+function checkSize(file) {
+    var size  =file.files[0].size / 1024;
+    if (size > 1000) {
+        alert("图片大小不能超过1M");
+        $(file).val("");
+    }
+}
+
+</script>
+
+</body>
+<!-- END BODY -->
+</html>

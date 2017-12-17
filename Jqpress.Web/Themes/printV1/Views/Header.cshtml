@@ -1,0 +1,46 @@
+﻿@using Jqpress.Core.Template;
+@{
+    Layout = null;
+}
+<div class="row header-top">
+    <div class="span5 logo" style="width:700px">
+        <a class="logo-img" href="/" title="北京俊兴彩色包装印刷有限公司"><img src="/upfiles/banner/Logo.jpg" alt="Tabulate" style="height:65px; width:auto" /></a>
+        <p class="tagline" >
+
+            <p> <font style="font-size:30px;font-family:宋体,微软雅黑;margin-left: 8px; ">北京俊兴彩色包装印刷有限公司</font></p>
+            <p>  <font style="font-size:14px;margin-left: 8px; word-spacing:8px; letter-spacing:2px;"> BeiJing  JunXing  Color  Package  Printing   Co.LTD</font></p>
+        </p>
+    </div>
+</div>
+
+<div class="row header-nav">
+    <div class="span12">
+        <nav id="menu" class="clearfix">
+            <ul>
+                <li class="current"><a href="/"><span class="name">首页</span></a> </li>
+                @{
+                    var nav = new JTag.Site().HeadNav;   
+                 }
+                @foreach (var item in nav.FindAll(c=>c.ParentId==0))
+                {
+                   
+                    <li><a href="@item.Url"><span class="name">@item.CateName</span></a>
+                    @{
+                    var childs = nav.FindAll(c => c.ParentId == item.CategoryId);
+                        if(childs!=null&&childs.Count()>0)
+                        {
+                           <ul>
+                                @foreach(var child in childs)
+                                {
+                                    <li><a href="@child.Url">@child.CateName</a> </li>
+                                }
+                            </ul>
+                        }   
+                     }
+                    
+                </li>
+                }
+            </ul>
+        </nav>
+    </div>
+</div>

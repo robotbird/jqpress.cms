@@ -1,0 +1,99 @@
+
+
+ul, li {
+	list-style:none;
+}
+.float-contact-mini {
+	position: absolute;
+	right: 1px;
+	top: 175px;
+}
+.float-contact-mini a {
+	background: url("../images/sprites.png") no-repeat scroll 0 0 transparent;
+	color: #FFFFFF !important;
+	display: block;
+	height: 65px;
+	line-height: 110%;
+	padding: 46px 5px 0;
+	text-align: center;
+	text-decoration: none !important;
+	width: 18px;
+}
+.float-contact {
+	display: none;
+	position: absolute;
+	right: 1px;
+	top: 0px;
+	width: 102px;
+}
+.float-contact .qq-close {
+	background: url("../images/sprites.png") no-repeat scroll -29px 0 transparent;
+	color: #FFFFFF !important;
+	display: block;
+	height: 31px;
+	line-height: 31px;
+	padding-left: 22px;
+	text-decoration: none !important;
+}
+.float-contact .container2 {
+	background:#FFFFFF;
+	border-color: #E3E3E3;
+	border-style: solid;
+	border-width: 0 1px;
+	padding: 1px 0;
+	text-align: center;
+}
+.float-contact .container2 {
+	border-style: solid;
+	text-align: center;
+}
+.float-contact .qq {
+	padding: 7px 0 6px;
+}
+.float-contact .qqtitle {
+	line-height: 200%;
+}
+.float-contact .qq .qq-btn 
+{
+    margin:0px 0px;
+	padding-top: 4px;
+	font-size:12px;
+}
+.float-contact .qq .qq-btn li {
+	padding-bottom: 5px;
+}
+.float-contact .qq .qq-btn a {
+	background: url("../images/sprites.png") no-repeat scroll -43px -80px transparent;
+	color: #1A649D;
+	display: block;
+	height: 23px;
+	line-height: 23px;
+	margin: 0 auto;
+	padding-left: 23px;
+	width: 53px;
+}
+.float-contact .qqtel {
+	background: url("../images/shadow-2.png") repeat-x scroll 0 100% transparent;
+	padding-bottom: 14px;
+}
+.float-contact .qqtel .qqcontent {
+	color: #FF6600;
+	font-size: 117%;
+	font-weight: bold;
+	line-height: 130%;
+	letter-spacing:0;
+}
+.float-contact .myqqlink {
+	background: url("../images/bg-x.png") repeat-x scroll 0 -320px #FA8400;
+	border-bottom: 1px solid #E3E3E3;
+	color: #FFFFFF !important;
+	display: block;
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
+	text-decoration: none !important;
+}
+h3.qqtitle {
+	margin:0;
+	padding:0;
+}

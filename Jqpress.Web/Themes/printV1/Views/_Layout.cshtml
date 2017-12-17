@@ -1,0 +1,73 @@
+﻿@using Jqpress.Core.Template;
+@{
+  var site = new JTag.Site();  
+  }
+<!DOCTYPE html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>@(ViewBag.Title +" "+ site.SiteName)</title>
+	<meta name="keywords" content="@site.MetaKeywords" />
+   <meta name="description" content="@site.MetaDescription" />
+
+	<!–[if IE]>
+		<script src="/scripts/html5.js"></script>
+	<![endif]–>
+
+	<meta name="viewport" content="width=100%; initial-scale=1; maximum-scale=1; minimum-scale=1; user-scalable=no;" />
+    <link rel="shortcut icon" href="/Themes/@site.ThemeName/Content/images/favicon.ico" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/Themes/@site.ThemeName/Content/images/apple-touch-icon-144-precomposed.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/Themes/@site.ThemeName/Content/images/apple-touch-icon-114-precomposed.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/Themes/@site.ThemeName/Content/images/apple-touch-icon-72-precomposed.png" />
+    <link rel="apple-touch-icon-precomposed" href="/Themes/@site.ThemeName/Content/images/apple-touch-icon-57-precomposed.png" />
+    <link href="/Themes/@site.ThemeName/Content/css/bootstrap.min.css" type="text/css" rel="stylesheet" />
+    <link href="/Themes/@site.ThemeName/Content/css/style.css" type="text/css" rel="stylesheet" />
+    <link href="/Themes/@site.ThemeName/Content/css/prettyPhoto.css" type="text/css" rel="stylesheet" />
+    <link href="/Themes/@site.ThemeName/Content/css/font-icomoon.css" type="text/css" rel="stylesheet" />
+    <link href="/Themes/@site.ThemeName/Content/css/font-awesome.css" type="text/css" rel="stylesheet" />
+    <link href="/Themes/@site.ThemeName/Content/css/qq.css" type="text/css" rel="stylesheet" />
+
+ 
+    <script type="text/javascript" src="/Themes/@site.ThemeName/Content/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/Themes/@site.ThemeName/Content/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/Themes/@site.ThemeName/Content/js/jquery.easing.1.3.js"></script>
+    <script type="text/javascript" src="/Themes/@site.ThemeName/Content/js/jquery.quicksand.js"></script>
+    <script type="text/javascript" src="/Themes/@site.ThemeName/Content/js/superfish.js"></script>
+    <script type="text/javascript" src="/Themes/@site.ThemeName/Content/js/hoverIntent.js"></script>
+     <script type="text/javascript" src="/Themes/@site.ThemeName/Content/js/jflickrfeed.min.js"></script>
+    <script type="text/javascript" src="/Themes/@site.ThemeName/Content/js/jquery.flexslider.js"></script>
+    <script type="text/javascript" src="/Themes/@site.ThemeName/Content/js/jquery.prettyPhoto.js"></script>
+    <script type="text/javascript" src="/Themes/@site.ThemeName/Content/js/jquery.elastislide.js"></script>
+    <script type="text/javascript" src="/Themes/@site.ThemeName/Content/js/jquery.tweet.js"></script>
+    <script type="text/javascript" src="/Themes/@site.ThemeName/Content/js/smoothscroll.js"></script>
+    <script type="text/javascript" src="/Themes/@site.ThemeName/Content/js/jquery.ui.totop.js"></script>
+    <script type="text/javascript" src="/Themes/@site.ThemeName/Content/js/main.js"></script>
+    <script type="text/javascript" src="/Themes/@site.ThemeName/Content/js/qq.js"></script>
+    
+</head>
+
+
+<body>
+
+<!--top menu-->
+<section id="top-menu">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</section>
+
+<!--header-->
+<header id="header">
+    <div class="container">
+         @Html.Action("Header","Home")
+    </div>
+</header>
+
+@RenderBody()
+
+@Html.Action("Footer", "Home")
+
+<!--footer menu-->
+
+</body>
+</html>

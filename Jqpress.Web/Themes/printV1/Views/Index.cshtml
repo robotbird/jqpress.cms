@@ -1,0 +1,107 @@
+﻿@using Jqpress.Framework.Mvc
+@using Jqpress.Framework.Utils;
+@using Jqpress.Core.Template;
+
+@{
+    Layout = "_Layout.cshtml";
+}
+<!--slider-->
+<section id="slider">
+    <div class="container">
+        <div class="row">
+            <div class="span12">
+                <div id="mainslider" class="flexslider">
+                    <ul class="slides">
+                        <li>
+                            <img src="/upfiles/banner/1.JPG" alt="" />
+                            
+                        </li>
+                        <li>
+                            <img src="/upfiles/banner/2.JPG" alt="" />
+                           
+                        </li>
+                        <li>
+                            <img src="/upfiles/banner/3.JPG" alt="" />
+                           
+                        </li>
+                        <li>
+                            <img src="/upfiles/banner/4.JPG" alt="" />
+                            
+                        </li>
+                          <li>
+                            <img src="/upfiles/banner/5.JPG" alt="" />
+                            
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!--container-->
+<section id="container">
+    <div class="container">
+        <div class="row">
+            <div class="span12">
+                <div class="hero-unit">
+                    <h4>公司简介</h4>
+                    @{
+                       var cate = (new JTag.Cate{pagename="about"}).Page;
+                      }
+                    @StringHelper.RemoveHtml(StringHelper.CutString(cate.Description, 0, 180))
+                    <p><a class="btn btn-welcome btn-large" href="@cate.Url">详细</a></p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="span12 our-works">
+                <h4>产品展示</h4>
+            </div>
+            <div class="span4">
+                <p>公司凭着先进的技术设备和良好的客户服务，与广大知名企业建立了长期的合作关系。先后与洪恩教育集团、全聚德、祥聚斋、吴裕泰、上海品利食品公司、恒阳集团、福瑞医疗科技股份有限公司、内蒙古医科大学、北大出版社、联想集团等优秀企业形成了长期战略合作伙伴。</p>
+                <a class="btn btn-large btn-welcome" href="/category/product">更多</a>
+            </div>
+            <div class="span8">
+                <div id="our-projects" class="carousel bttop">
+                    <div class="carousel-wrapper">
+                        <ul class="portfolio">
+                         @{
+                             var list = (new JTag.Post{num=10,HomeStatus=1}).List;
+                          }
+                          @foreach (var item in list)
+                          {
+                            <li>
+                                <article>
+                                    <div class="inner-image">
+                                        <a href="@item.Url" >
+                                            <img src="@item.TitlePic" alt="" />
+                                            <span class="frame-overlay"></span>
+                                        </a>
+                                    </div>
+                                    <div class="sliding">
+                                        <div class="inner-text">
+                                            <h4 class="title"><a href="@item.Url">@StringHelper.CutString(item.Title,0,20)</a></h4>
+                                        </div>
+                                    </div>
+                                </article>
+                            </li>
+                          }
+                           
+                        </ul>
+                    </div>
+                </div>
+                <script type="text/javascript">
+                    $(document).ready(function () {
+                        $('#our-projects').elastislide({
+                            imageW: 237,
+                            border: 0,
+                            minItems: 1,
+                            margin: 30
+                        });
+                    });
+                </script>
+            </div>
+        </div>
+    </div>
+</section>

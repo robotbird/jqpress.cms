@@ -1,0 +1,47 @@
+﻿@using Jqpress.Framework.Mvc
+@model Jqpress.Web.Models.PostListModel
+@using Jqpress.Framework.Mvc
+
+@{
+    Layout = "_Layout.cshtml";
+}
+<section class="breadcrumbs">
+    <div class="container">
+        <div class="page-header">
+            <div class="row">
+                <div class="span8">
+                    <div style="padding-top:5px;font-size:16px;"><a href="/">首页</a> &nbsp;&rsaquo;&rsaquo;&nbsp; @Model.Category.CateName</div>
+                </div>
+               
+            </div>
+        </div>
+    </div>
+</section>
+<!--container-->
+<section id="container">
+    <div class="container">
+        <div class="clear"></div>
+        <section class="row portfolio filtrable clearfix">
+
+        @foreach(var item in Model.PostList)
+        {
+          <article data-id="id-1" data-type="html" class="span3">
+                <div class="inner-image">
+                    <a href="@item.Url">
+                        <img src="@item.TitlePic" alt="photo" style="width:270px;height:200px" />
+                        <span class="frame-overlay"></span>
+                    </a>
+                </div>
+                
+               <div style="padding-top:10px;background-color:#ffffff;">@(Jqpress.Framework.Utils.StringHelper.GetSubString(item.Title,30,"..."))</div>
+            </article>
+        }
+
+
+
+        </section>
+        <!--pagination-->
+       <div id="pager"><ul class="pagination">@Html.Pager(Model.PageList).ShowIndividualPages(true)</ul> </div>
+
+    </div>
+</section>

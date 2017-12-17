@@ -1,0 +1,48 @@
+﻿@using Jqpress.Framework.Mvc
+@model Jqpress.Web.Models.PostModel
+
+@{
+    Layout = "_Layout.cshtml";
+}
+<section class="breadcrumbs">
+    <div class="container">
+        <div class="page-header">
+            <div class="row">
+                <div class="span8">
+                    <div style="padding-top:5px;font-size:16px;"><a href="/">首页</a> &nbsp;&rsaquo;&rsaquo;&nbsp; @Model.Post.Category.CateName</div>
+                </div>
+               
+            </div>
+        </div>
+    </div>
+</section>
+<!--container-->
+
+
+<section id="container">
+    <div class="container">
+        <div class="row">
+            <section id="page-sidebar" class="pull-right" style="border: 1px solid #eeeeee; width:820px; padding:20px;">
+
+               <article class="blog-post">
+                    <div class="row">
+                        <div class="span8">
+                            <h3 class="post-title" style="text-align:center">@Model.Post.Title</h3>
+                           
+                                <div style="margin:10px auto; padding-bottom:30px; width:300px">时间：@Model.Post.UpdateTime  编辑：@Model.Post.Author.UserName </div>
+                            
+
+                            <div class="post-content" style="min-height:300px">
+                                @Html.Raw(Model.Post.PostContent)
+                            </div>
+                        </div>
+                    </div>
+                </article>
+   
+            </section>
+            <!--sidebar-->
+           @Html.Action("SiderBar", "Home")
+        </div>
+    </div>
+</section>
+

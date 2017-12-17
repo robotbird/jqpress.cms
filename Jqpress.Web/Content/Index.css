@@ -1,0 +1,200 @@
+﻿p, dl, dd, dt {
+    line-height: 140%;
+}
+p {
+    margin: 1em 0;
+}
+ul li{list-style:none;}
+.postbox p, .postbox ul, .postbox ol, .postbox blockquote, #wp-version-message {
+    font-size: 13px;
+}
+#dashboard_right_now p.sub {
+    font-size: 14px;
+    font-style: normal;
+}
+
+#dashboard_right_now p.sub {
+    color: #777777;
+    font-size: 13px;
+    left: 15px;
+    padding: 5px 10px 15px;
+    position: absolute;
+    top: -17px;
+}
+    element.style {
+    width: 49%;
+}
+.postbox-container {
+    float: left;
+    padding-right: 0.5%;
+}
+
+#dashboard_right_now .versions {
+    clear: both;
+    padding: 6px 10px 12px;
+}
+.widget, .postbox {
+    background-color: #FFFFFF;
+}
+.postbox div{ margin:10px;}
+.widget, #widget-list .widget-top, .postbox, #titlediv, #poststuff .postarea, .stuffbox {
+    border-color: #DFDFDF;
+}
+.postbox {
+    min-width: 255px;
+    position: relative;
+    width: 99.5%;
+}
+
+.widget, .postbox, .stuffbox {
+    border-radius: 6px 6px 6px 6px;
+    border-style: solid;
+    border-width: 1px;
+    line-height: 1;
+    margin-bottom: 20px;
+}
+
+body, #wpbody, .form-table .pre {
+    color: #333333;
+}
+.postbox .handlediv {
+    float: right;
+    height: 26px;
+    width: 23px;
+}
+.widget, .postbox, .stuffbox {
+    border-style: solid;
+    line-height: 1;
+}
+
+
+.ui-sortable .postbox h3 {
+    color: #464646;
+}
+
+.postbox .hndle {
+    cursor: move;
+}
+
+.widget .widget-top, .postbox h3, .stuffbox h3 {
+    background: url("images/gray-grad.png") repeat-x scroll left top #DFDFDF;
+    text-shadow: 0 1px 0 #FFFFFF;
+}
+
+#poststuff h3, .metabox-holder h3 {
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 1;
+    margin: 0;
+    padding: 7px 9px;
+}
+
+.widget .widget-top, .postbox h3, .postbox h3, .stuffbox h3 {
+    border-radius: 6px 6px 0 0;
+}
+#dashboard_right_now .inside {
+    font-size: 12px;
+    padding-top: 20px;
+}
+div.postbox div.inside {
+    margin: 10px;
+    position: relative;
+}
+.inside div{margin: 10px;}
+#dashboard_right_now .table_content {
+    border-top: 1px solid #ECECEC;
+    float: left;
+    width: 45%;
+}
+#dashboard_right_now .table {
+    margin: 0 -9px;
+    padding: 0 10px;
+    position: relative;
+}
+#dashboard_right_now .table_discussion {
+    border-top: 1px solid #ECECEC;
+    float: right;
+    width: 45%;
+}
+#dashboard_right_now .table {
+    margin: 0 -9px;
+    padding: 0 10px;
+    position: relative;
+}
+#dashboard_right_now .versions {
+    clear: both;
+    padding: 6px 10px 12px;
+}
+#dashboard_right_now p.sub, #dashboard_right_now .table, #dashboard_right_now .versions {
+    margin: -12px;
+}
+.ui-sortable .postbox h3 {
+    color: #464646;
+}
+
+.postbox .hndle {
+    cursor: move;
+}
+.widget .widget-top, .postbox h3, .stuffbox h3 {
+    background: url("images/gray-grad.png") repeat-x scroll left top #DFDFDF;
+    text-shadow: 0 1px 0 #FFFFFF;
+}
+#poststuff h3, .metabox-holder h3 {
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 1;
+    margin: 0;
+    padding: 7px 9px;
+}
+.widget .widget-top, .postbox h3, .postbox h3, .stuffbox h3 {
+    border-radius: 6px 6px 0 0;
+}
+.rss-widget ul li {
+    line-height: 1.5em;
+    margin-bottom: 12px;
+}
+.textright {
+    text-align: right;
+}
+#dashboard_right_now a.button {
+    clear: right;
+    float: right;
+    position: relative;
+    top: -5px;
+}
+
+#dashboard-widgets a {
+    text-decoration: none;
+}
+
+a.button, a.button-primary, a.button-secondary {
+    line-height: 15px;
+    padding: 3px 10px;
+    white-space: nowrap;
+}
+
+.submit input, .button, input.button, .button-primary, input.button-primary, .button-secondary, input.button-secondary, .button-highlighted, input.button-highlighted, #postcustomstuff .submit input {
+    font-size: 12px !important;
+}
+
+.button, .submit input, .button-secondary {
+    background: url("images/white-grad.png") repeat-x scroll left top #F2F2F2;
+    text-shadow: 0 1px 0 #FFFFFF;
+}
+
+.button, .button-secondary, .submit input, input[type="button"], input[type="submit"] {
+    border-color: #BBBBBB;
+    color: #464646;
+}
+
+.submit input, .button, input.button, .button-primary, input.button-primary, .button-secondary, input.button-secondary, .button-highlighted, input.button-highlighted, #postcustomstuff .submit input {
+    -moz-box-sizing: content-box;
+    border-radius: 11px 11px 11px 11px;
+    border-style: solid;
+    border-width: 1px;
+    cursor: pointer;
+    font-size: 11px !important;
+    line-height: 13px;
+    padding: 3px 8px;
+    text-decoration: none;
+}

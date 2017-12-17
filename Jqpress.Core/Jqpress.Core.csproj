@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{28A3A37D-886F-45DA-B8A7-6272FFCFFC6A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Jqpress.Core</RootNamespace>
+    <AssemblyName>Jqpress.Core</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Mono.Data.Sqlite">
+      <HintPath>..\packages\Mono.Data.Sqlite.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Common\AdminPage.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Common\BasePage.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Common\EmailHelper.cs" />
+    <Compile Include="Common\Pager.cs" />
+    <Compile Include="Common\PagerControl.cs" />
+    <Compile Include="Configuration\SiteConfig.cs" />
+    <Compile Include="Configuration\SiteMapNode.cs" />
+    <Compile Include="Configuration\XmlSiteMap.cs" />
+    <Compile Include="Domain\ArchiveInfo.cs" />
+    <Compile Include="Domain\SiteConfigInfo.cs" />
+    <Compile Include="Domain\CategoryInfo.cs" />
+    <Compile Include="Domain\CommentInfo.cs" />
+    <Compile Include="Domain\Enum\Enums.cs" />
+    <Compile Include="Domain\FeedInfo.cs" />
+    <Compile Include="Domain\FileInfo.cs" />
+    <Compile Include="Domain\FoldInfo.cs" />
+    <Compile Include="Domain\LinkInfo.cs" />
+    <Compile Include="Domain\PostInfo.cs" />
+    <Compile Include="Domain\StatisticsInfo.cs" />
+    <Compile Include="Domain\TagInfo.cs" />
+    <Compile Include="Domain\ThemeInfo.cs" />
+    <Compile Include="Domain\UserInfo.cs" />
+    <Compile Include="Ping\Manager.cs" />
+    <Compile Include="Ping\Pingback.cs" />
+    <Compile Include="Ping\PingService.cs" />
+    <Compile Include="Ping\Trackback.cs" />
+    <Compile Include="Ping\TrackbackMessage.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\IRepository\ICategoryRepository.cs" />
+    <Compile Include="Repositories\IRepository\ICommentRepository.cs" />
+    <Compile Include="Repositories\IRepository\ILinkRepository.cs" />
+    <Compile Include="Repositories\IRepository\IPostRepository.cs" />
+    <Compile Include="Repositories\IRepository\IRepository.cs" />
+    <Compile Include="Repositories\IRepository\ISiteRepository.cs" />
+    <Compile Include="Repositories\IRepository\ITagRepository.cs" />
+    <Compile Include="Repositories\IRepository\IUserRepository.cs" />
+    <Compile Include="Repositories\Repository\CategoryRepository.cs" />
+    <Compile Include="Repositories\Repository\CommentRepository.cs" />
+    <Compile Include="Repositories\Repository\LinkRepository.cs" />
+    <Compile Include="Repositories\Repository\PostRepository.cs" />
+    <Compile Include="Repositories\Repository\SiteRepository.cs" />
+    <Compile Include="Repositories\Repository\TagRepository.cs" />
+    <Compile Include="Repositories\Repository\UserRepository.cs" />
+    <Compile Include="Services\ArchiveService.cs" />
+    <Compile Include="Services\CategoryService.cs" />
+    <Compile Include="Services\CommentService.cs" />
+    <Compile Include="Services\LinkService.cs" />
+    <Compile Include="Services\PostService.cs" />
+    <Compile Include="Services\StatisticsService.cs" />
+    <Compile Include="Services\TagService.cs" />
+    <Compile Include="Services\ThemeService.cs" />
+    <Compile Include="Services\UserService.cs" />
+    <Compile Include="Template\JTag.cs" />
+    <Compile Include="XmlRpc\MetaWeblogHelper.cs" />
+    <Compile Include="XmlRpc\XMLRPCRequest.cs" />
+    <Compile Include="XmlRpc\XMLRPCResponse.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Jqpress.Framework\Jqpress.Framework.csproj">
+      <Project>{24EF6952-D3FD-4C8B-B8FF-5D5E783F68A0}</Project>
+      <Name>Jqpress.Framework</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

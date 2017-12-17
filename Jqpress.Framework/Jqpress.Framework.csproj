@@ -1,0 +1,158 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{24EF6952-D3FD-4C8B-B8FF-5D5E783F68A0}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Jqpress.Framework</RootNamespace>
+    <AssemblyName>Jqpress.Framework</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;CSHARP30</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Mono.Data.Sqlite">
+      <HintPath>..\packages\Mono.Data.Sqlite.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.SQLite, Version=1.0.66.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\System.Data.SQLite.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.WebPages, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Cache\CacheHelper.cs" />
+    <Compile Include="Cache\CacheProvider.cs" />
+    <Compile Include="Cache\DefaultCacheStrategy.cs" />
+    <Compile Include="Cache\ICacheStrategy.cs" />
+    <Compile Include="Configuration\ConfigHelper.cs" />
+    <Compile Include="DbProvider\Access\OleDbHelper.cs" />
+    <Compile Include="DbProvider\DapperHelper.cs" />
+    <Compile Include="DbProvider\SqlMapper.cs" />
+    <Compile Include="DbProvider\SqlMapperExtensions.cs" />
+    <Compile Include="Mvc\BasePageableModel.cs" />
+    <Compile Include="Mvc\HtmlExtensions.cs" />
+    <Compile Include="Mvc\IPageableModel.cs" />
+    <Compile Include="Mvc\IPagedList.cs" />
+    <Compile Include="Mvc\PagedList.cs" />
+    <Compile Include="Mvc\Pager.cs" />
+    <Compile Include="Mvc\PagerHtmlExtension.cs" />
+    <Compile Include="Mvc\PagerModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ScheduledEvents\ManagedThreadPool.cs" />
+    <Compile Include="Themes\IMobileDeviceHelper.cs" />
+    <Compile Include="Themes\IThemeContext.cs" />
+    <Compile Include="Themes\MobileDeviceHelper.cs" />
+    <Compile Include="Themes\ThemeableBuildManagerViewEngine.cs" />
+    <Compile Include="Themes\ThemeableRazorViewEngine.cs" />
+    <Compile Include="Themes\ThemeableVirtualPathProviderViewEngine.cs" />
+    <Compile Include="Themes\ThemeContext.cs" />
+    <Compile Include="Utils\DateTimeHelper.cs" />
+    <Compile Include="Utils\EncryptHelper.cs" />
+    <Compile Include="Utils\FileHelper.cs" />
+    <Compile Include="Utils\JsonHelper.cs" />
+    <Compile Include="Utils\StringHelper.cs" />
+    <Compile Include="Utils\TypeConverter.cs" />
+    <Compile Include="Utils\Validate.cs" />
+    <Compile Include="Utils\Watermark.cs" />
+    <Compile Include="Web\HttpHelper.cs" />
+    <Compile Include="Web\PressRequest.cs" />
+    <Compile Include="Web\UrlRewriter.cs" />
+    <Compile Include="Xml\SerializationHelper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="DbProvider\MySql\" />
+    <Folder Include="DbProvider\SqlServer\" />
+    <Folder Include="Exceptions\" />
+    <Folder Include="Logging\" />
+    <Folder Include="ViewEngine\NVelocityEngine\" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>Code Syntax Highlighter </title>
+	<script type="text/javascript" src="../../tiny_mce_popup.js"></script>
+	<script type="text/javascript" src="js/dialog.js"></script>
+	<script type="text/javascript" src="js/encoder.js"></script>
+</head>
+<body>
+<form onsubmit="InsertCodeDialog.insert();return false;" action="#">
+	<p>
+	    <select id="ddLang">
+             <option value="bash">Bash</option>
+             <option value="cpp">C++</option>
+             <option value="c-sharp" selected>C#</option>
+             <option value="css">Css</option>
+             <option value="delphi">Delphi</option>
+             <option value="diff">Diff</option>
+             <option value="groovy">Groovy</option>
+             <option value="java">Java</option>
+             <option value="js">JScript</option>
+             <option value="php">Php</option>
+             <option value="plain">Plain</option>
+             <option value="py">Python</option>
+             <option value="rails">Ruby</option>
+             <option value="scala">Scala</option>
+             <option value="sql">Sql</option>
+             <option value="vb">Vb</option>
+             <option value="xml">Xml</option>
+             <option value="cf">ColdFusion</option>
+             <option value="erlang">Erlang</option>
+             <option value="jfx">JavaFX</option>
+             <option value="perl">Perl</option>
+             <option value="ps">PowerShell</option>
+        </select>
+        &nbsp;Select Language:
+	</p>
+	
+    <div>
+        <textarea style="width: 100%" rows="19" cols="35" id="txtCode">Insert code here...</textarea>
+    </div>
+
+	<div style="float: left">
+		<input type="button" id="insert" name="insert" value="{#insert}" onclick="InsertCodeDialog.insert();" />
+	</div>
+	<div style="float: right">
+		<input type="button" id="cancel" name="cancel" value="{#cancel}" onclick="tinyMCEPopup.close();" />
+	</div>
+</form>
+
+</body>
+</html>

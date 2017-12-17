@@ -1,0 +1,40 @@
+﻿@using Jqpress.Core.Template;
+@using Jqpress.Framework.Utils;
+@{
+    Layout = null;
+}
+            <aside id="sidebar" class="pull-left span3" >
+            
+            <section style="border: 1px solid #eeeeee;">
+                <div style=" padding:10px;background-color: #e84807; color:White ">推荐新闻</div>
+                <ul class="icons ul-list" style="padding:10px;">
+                @{
+                      var list = (new JTag.Post{pagename="news",num=6}).List;
+                 }
+                    @foreach(var item in list)
+                    {
+                    <li><a href="@item.Url">@StringHelper.GetSubString(item.Title,32,"")</a></li>                    
+                    }
+                </ul>
+            </section>
+            <section class="popular-posts" style="border: 1px solid #eeeeee;">
+                <div style=" padding:10px;background-color: #e84807; color:White">最新产品</div>
+                   @{
+                      var prolist = (new JTag.Post{pagename="product",num=3}).List;
+                  }
+                    @foreach (var item in prolist)
+                    {
+                     <div class="media" style=" padding:10px;">
+                    <a class="pull-left" href="@item.Url">
+                        <img class="media-object" src="@item.TitlePic" alt="" width="120" height="60" />
+                        <span class="frame-overlay"></span>
+                    </a>
+                    <div class="media-body">
+                        <h4 class="media-heading"><a href="@item.Url">@StringHelper.GetSubString(item.Title, 32, "")</a></h4>
+                        <p>@StringHelper.GetSubString(item.Summary, 32, "")</p>
+                    </div>
+                     </div>
+                    }
+
+            </section>
+    </aside>

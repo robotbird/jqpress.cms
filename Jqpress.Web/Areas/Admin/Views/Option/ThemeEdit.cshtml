@@ -1,0 +1,70 @@
+﻿@using System.IO
+@using Jqpress.Framework.Mvc
+@using Jqpress.Core.Configuration
+@using Jqpress.Framework.Web;
+@model Jqpress.Web.Areas.Admin.Models.ThemeModel
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    ViewBag.Title =  "模板编辑 - 管理中心 - Powered by Jqpress";
+}
+
+
+<!-- BEGIN PAGE HEADER-->
+<div class="row">
+<div class="col-md-12">
+    <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+    <h3 class="page-title">
+        模板编辑
+    </h3>
+    <!-- END PAGE TITLE & BREADCRUMB-->
+</div>
+<div>地址：@Html.Raw(Model.PathUrl)</div>
+</div>
+<!-- END PAGE HEADER-->
+        
+ <div class="portlet-body">
+
+ <form class="search-form" role="form" method="get" action="@Url.Action("List", "Post")">
+                     <table class="table table-striped table-bordered table-hover" >
+                        <thead>
+                           <tr>
+                             <th>名称</th>
+			                <th>修改时间</th>
+			                <th>大小</th>
+			                <th>操作</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+
+                              @foreach (var item in Model.FoldList)
+                              {
+		                              <tr id="post@(item.FoldName)" class="odd gradeX">
+			                            <td>
+			                           <a href="@ViewBag.UrlPath?themename=@Request["themename"]&path=@item.FoldPath/@item.FoldName"><img src="/assets/img/foldmin.png" /> @item.FoldName</a>
+			                            </td>
+			                            <td>@item.UpdateTime</td>
+			                            <td>@item.FileSystemInfosLength </td>
+			                            <td>
+			  	                            <span><a href="edit?id=@item.FoldName"> 编辑 </a></span>
+				                            <span><a onclick="return confirm('确定删除，将会删除文件夹?');" href="delete?id=@item.FoldName"> 删除</a></span>
+		                                </td>
+		                              </tr>
+                              }
+                             @foreach (var item in Model.FileList)
+                             {
+		                              <tr id="post@(item.FileName)" class="odd gradeX">
+			                            <td>
+			                             <img src="/assets/img/txt.gif" style="width:14px; height:15px" /> @item.FileName
+			                            </td>
+			                            <td>@item.UpdateTime</td>
+			                            <td>@item.FileLength </td>
+			                            <td>
+			  	                            <span><a href="edit?id=@item.FileName"> 编辑 </a></span>
+				                            <span><a onclick="return confirm('确定删除?');" href="delete?id=@item.FileName"> 删除</a></span>
+		                                </td>
+		                              </tr>
+                             }
+                        </tbody>
+                     </table>
+                      </form>
+  </div>

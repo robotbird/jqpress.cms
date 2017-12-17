@@ -1,0 +1,29 @@
+﻿@using Jqpress.Framework.Mvc
+@model Jqpress.Web.Models.IndexModel
+
+@{
+    Layout = "_Layout.cshtml";
+}
+<article id="post_list">
+	@foreach(var item in @Model.PostList){
+	<section class="post">
+
+			<h2><a  href="@item.Url">@item.Title</a></h2>
+			<small class="meta">@item.PostTime.ToString("yyyy-MM-dd")</small>
+			
+			<p>
+			@item.Detail
+              <a href="@item.Url">阅读全文 &raquo;</a>
+            </p>
+
+	</section>
+     }
+
+@if (Model.PostList.Count == 0)
+ {
+		<div id="nopage">也许以前这里有一个页面，但是现在没有了，有可能被强拆了！</div>
+ }
+</article>
+<div class= "pager">
+@Html.Pager(Model.PageList)
+</div>

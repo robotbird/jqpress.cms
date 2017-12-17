@@ -1,0 +1,87 @@
+﻿@model Jqpress.Web.Models.PostModel
+@{
+    Layout = "_Layout.cshtml";
+}
+
+	<link type="text/css" rel="stylesheet" href="@Model.SiteUrl/common/syntaxhighlighter/styles/shCoreDefault.css"/>
+	<script type="text/javascript" src="@Model.SiteUrl/common/syntaxhighlighter/scripts/shCore.js"></script>
+	<script type="text/javascript" src="@Model.SiteUrl/common/syntaxhighlighter/scripts/shBrushJScript.js"></script>
+	<script type="text/javascript" src="@Model.SiteUrl/common/syntaxhighlighter/scripts/shBrushCSharp.js"></script>
+	<script type="text/javascript" src="@Model.SiteUrl/common/syntaxhighlighter/scripts/shBrushJava.js"></script>
+	<script type="text/javascript" src="@Model.SiteUrl/common/syntaxhighlighter/scripts/shBrushSql.js"></script>
+<script type="text/javascript">    SyntaxHighlighter.all();</script>	<style type="text/css">/* CodeHighlighter Begin */
+.cnblogs_code
+{
+	background-color: #F5F5F5;
+	font-family:Courier New;
+	font-size: 12px;
+	border: 1px solid #CCCCCC;
+	padding: 5px;
+	word-break: break-all;
+	overflow:auto;
+}
+.cnblogs_code pre{font-size: 12px;}
+.cnblogs_code span{
+	font-family:Courier New;
+	font-size: 12px;
+}
+.cnblogs_code_Collapse
+{
+	border-right: #808080 1px solid;
+	border-top: #808080 1px solid;
+	border-left: #808080 1px solid; 
+	border-bottom: #808080 1px solid; 
+	background-color: #FFF;
+	padding:2px;
+}
+.cnblogs_code_collapse
+{
+	border-right: #808080 1px solid;
+	border-top: #808080 1px solid;
+	border-left: #808080 1px solid; 
+	border-bottom: #808080 1px solid; 
+	background-color: #FFF;
+	padding:2px;
+}
+.cnblogs_code_hide{}
+.code_img_closed{vertical-align:middle;padding-right:5px;}
+.code_img_opened{vertical-align:middle;padding-right:5px;}
+.cnblogs_code_open{margin-top:5px;}
+/* CodeHighlighter End */
+</style>
+	
+<div id="main">
+		
+			  <div id="post-@Model.Post.PostId}">
+				<h1>@Model.Post.Title</h1>
+				<div class="meta">@Model.Post.PostTime.ToString("yyyy-MM-dd")</div>
+				<div id="post_content"> 
+                @(new HtmlString(Model.Post.PostContent))
+                </div>
+				
+				<div class="meta">
+				作者：@(new HtmlString(Model.Post.Author.Link)), 分类：@(new HtmlString(Model.Post.Category.Link)) 
+				标签：
+				@foreach(var item in Model.Post.Tags){
+				<a href="@item.Url">@item.CateName</a>
+               }
+				,
+				 浏览(@Model.Post.ViewCount), 评论(@Model.Post.CommentCount)
+				</div>
+			</div>
+         <div>
+            @if (Model.Post.Previous.PostId > 0)  {<span>上一篇:</span>@(new HtmlString(Model.Post.Previous.Link))}
+            <br />
+             @if (Model.Post.Next.PostId > 0)  { <span>下一篇:</span> @(new HtmlString(Model.Post.Next.Link))}
+        </div>
+        
+         <h3>相关文章</h3>
+        <ul class="post-related">
+            @foreach(var item in Model.Post.RelatedPosts){
+            <li><a href="@item.Url">@item.Title</a>(@item.ViewCount)</li>
+            }
+        </ul>
+		
+	
+		#parse("_comment.html")
+	</div>

@@ -1,0 +1,75 @@
+﻿@using Jqpress.Framework.Mvc
+@model Jqpress.Core.Domain.SiteConfigInfo
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "站点设置 - 管理中心 - Powered by Jqpress";
+}
+
+<!-- BEGIN PAGE HEADER-->
+<div class="row">
+<div class="col-md-12">
+    <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+    <h3 class="page-title">
+        站点设置
+    </h3>
+    <!-- END PAGE TITLE & BREADCRUMB-->
+</div>
+</div>
+<!-- END PAGE HEADER-->
+        
+ @Html.JPartial("_Notifications")
+
+ <div class="portlet-body">
+
+ <form name="form1" method="post" action="@Url.Action("SaveConfig", "Option")" enctype="multipart/form-data" >
+
+                     <ul  class="nav nav-tabs">
+                        <li class="active"><a href="#tab_1_1" data-toggle="tab">基本设置</a></li>
+                     <!--   <li class=""><a href="#tab_1_2" data-toggle="tab">邮箱</a></li>-->
+                     <!--   <li class=""><a href="#tab_1_3" data-toggle="tab">首页幻灯片</a></li>-->
+                        
+                     </ul>
+                     <div  class="tab-content">
+                        <div class="tab-pane fade active in" id="tab_1_1">
+                                <div class="form-group">
+                                    <label for="SiteName" style="width:180px">网站名称：</label>
+                                    <input type="text" id="SiteName" name="SiteName" value="@Model.SiteName" class="form-control"  style="width:60%" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="MetaKeywords"  style="width:180px">关键词：</label>
+                                    <input type="text" id="MetaKeywords" name="MetaKeywords" value="@Model.MetaKeywords" class="form-control"  style="width:60%" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="MetaDescription"  style="width:180px">描述：</label>
+                                    <input type="text" id="MetaDescription" name="MetaDescription" value="@Model.MetaDescription" class="form-control"  style="width:60%" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="FooterHtml"  style="width:180px">站点底部信息：</label>
+
+                                    <textarea class="form-control" id="FooterHtml" name="FooterHtml"  rows="5"  style="width:60%">@Model.FooterHtml</textarea>                                </div>
+
+                        </div>
+                        <div class="tab-pane fade" id="tab_1_2">
+                           <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit. Keytar helvetica VHS salvia yr, vero magna velit sapiente labore stumptown. Vegan fanny pack odio cillum wes anderson 8-bit, sustainable jean shorts beard ut DIY ethical culpa terry richardson biodiesel. Art party scenester stumptown, tumblr butcher vero sint qui sapiente accusamus tattooed echo park.</p>
+                        </div>
+                        <div class="tab-pane fade" id="tab_1_3">
+                           <p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade. Messenger bag gentrify pitchfork tattooed craft beer, iphone skateboard locavore carles etsy salvia banksy hoodie helvetica. DIY synth PBR banksy irony. Leggings gentrify squid 8-bit cred pitchfork. Williamsburg banh mi whatever gluten-free, carles pitchfork biodiesel fixie etsy retro mlkshk vice blog. Scenester cred you probably haven't heard of them, vinyl craft beer blog stumptown. Pitchfork sustainable tofu synth chambray yr.</p>
+                        </div>
+                        <div class="tab-pane fade" id="tab_1_4">
+                           <p>Trust fund seitan letterpress, keytar raw denim keffiyeh etsy art party before they sold out master cleanse gluten-free squid scenester freegan cosby sweater. Fanny pack portland seitan DIY, art party locavore wolf cliche high life echo park Austin. Cred vinyl keffiyeh DIY salvia PBR, banh mi before they sold out farm-to-table VHS viral locavore cosby sweater. Lomo wolf viral, mustache readymade thundercats keffiyeh craft beer marfa ethical. Wolf salvia freegan, sartorial keffiyeh echo park vegan.</p>
+                        </div>
+                     </div>
+
+        <div class="form-group">
+            <button type="submit" name="btnSave"   id="btnSave" class="btn btn-primary" >保存</button>
+        </div>
+ </form>
+</div>
+
+
+    <script src="/assets/scripts/app.js"></script>
+   <script>
+       jQuery(document).ready(function () {
+           App.init();
+       });
+   </script>

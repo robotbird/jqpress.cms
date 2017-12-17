@@ -1,0 +1,158 @@
+﻿@using Jqpress.Framework.Mvc
+@using Jqpress.Framework.Utils;
+@model Jqpress.Web.Areas.Admin.Models.CommentModel
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "评论管理 - 管理中心 - Powered by Jqpress";
+}
+
+<script type="text/javascript">
+    var checkFlag = true;
+    function chooseAll() {
+        if (checkFlag) // 全选　
+        {
+            var inputs = document.getElementsByTagName("input");
+            for (var i = 0; i < inputs.length; i++) {
+                if (inputs[i].type == "checkbox" && inputs[i].id != "checkAll") {
+                    inputs[i].checked = true;
+                }
+            }
+            checkFlag = false;
+        }
+        else  // 取消 
+        {
+            var inputs = document.getElementsByTagName("input");
+            for (var i = 0; i < inputs.length; i++) {
+                if (inputs[i].type == "checkbox" && inputs[i].id != "checkAll") {
+                    inputs[i].checked = false;
+                }
+            }
+            checkFlag = true;
+        }
+    }
+
+    function approve(id) {
+        $.ajax({
+            url: '@Url.Action("Approve", "Comment",new{dt=DateTime.Now})',
+            data: { id: id },
+            success: function (msg) {
+                if (msg == "approve") {
+                    $("#row" + id + " .img-approve").attr("src", "/Content/images/yes.gif").attr("title", "已审核");
+                    $("#row" + id + " .approve").text("取消审核");
+                } else if (msg == "unapprove") {
+                    $("#row" + id + " .img-approve").attr("src", "/Content/images/no.gif").attr("title", "未审核");
+                    $("#row" + id + " .approve").text("审核");
+                 }
+            }
+        });
+    }
+
+    //delete comment
+    function deleteRow(id) {
+        if (confirm('确认删除?')) {
+            $.ajax({
+                url: '@Url.Action("Delete", "Comment",new{dt=DateTime.Now})',
+                data: { id: id },
+                success: function (msg) {
+                    $("#row" + id).fadeOut(500);
+                }
+            });
+        }
+    }
+    //batch delete comment
+    function deleteRows() {
+        var chkid = $('input[name="CommentId"]');
+
+        if (chkid == undefined || chkid == "") {
+            alert("请选择评论");
+            return;
+        }
+        if (confirm('确认删除选择的评论')) {
+            $.each(chkid, function (i, n) {
+                if (n.checked) {
+                    $.ajax({
+                        url: '@Url.Action("Delete", "Comment",new{dt=DateTime.Now})',
+                        data: { id: n.value },
+                        success: function (msg) {
+                            $("#row" + n.value).fadeOut(500);
+                        }
+                    });           
+                }
+            });
+        }
+    }
+    $(document).ready(function () {
+        $(".row td .delete").bind("click", function () { deleteRow(this.id); });
+        $(".row td .approve").bind("click", function () { approve(this.id); });
+    });
+</script>
+
+<!-- BEGIN PAGE HEADER-->
+<div class="row">
+<div class="col-md-12">
+    <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+    <h3 class="page-title">
+        留言
+    </h3>
+    <!-- END PAGE TITLE & BREADCRUMB-->
+</div>
+</div>
+<!-- END PAGE HEADER-->
+
+<div class="table-toolbar">
+
+     <div class="btn-group" >
+                    <button type="button" class="btn btn-default" id="doaction">批量删除</button>
+     </div>
+     <div class="btn-group">
+           	        <input type="text" name="s" id="search" placeholder="关键字" value="" class="form-control" style="width:180px;"/>
+    </div>
+
+     <div class="btn-group">
+                    <button type="submit" class="btn  btn-default" onclick="query()"><i class="icon-search"></i></button>
+     </div> 
+                      
+</div>
+
+    <table  class="table table-striped table-bordered table-hover">
+     <thead>
+        <tr>
+            <th class="table-checkbox"><input type="checkbox" class="group-checkable" data-set="#sample_1 .checkboxes" /></th>
+            <th >姓名</th>
+            <th >评论</th>
+            <th >时间</th>
+            <th >操作</th>
+        </tr>
+         </thead>
+          <tbody>
+         @foreach(var item in Model.CommentList){
+                <tr  id="row@(item.CommentId)">
+                    <td><input type="checkbox"  name="CommentId" value='@item.CommentId' /></td>
+                    <td style="line-height:150%;">
+                        @item.Author
+                    </td>
+                   
+                    <td>      
+                        <span title="@item.Contents">
+                            @StringHelper.CutString(StringHelper.RemoveHtml(item.Contents),0,60)
+                        </span>
+                        
+                        
+                    </td>
+                     
+                     
+                    <td>
+                    <span class="gray small" >@item.CreateTime</span>
+                     </td>
+                    <td>
+                         
+                         <a class="delete" href="javascript:void(0)" id="@item.CommentId">删除</a>   
+                    </td>
+                </tr>
+         }
+ 
+         </tbody>
+    </table>
+    
+<div id="pager"><ul class="pagination">@Html.Pager(Model.PageList).ShowIndividualPages(true)</ul> </div>
+

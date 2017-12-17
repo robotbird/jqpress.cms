@@ -1,0 +1,74 @@
+﻿@using Jqpress.Framework.Mvc
+@using Jqpress.Framework.Web;
+@model Jqpress.Web.Areas.Admin.Models.UserModel
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = Model.user.UserId > 0 ? "编辑用户 - 管理中心 - Powered by Jqpress" : "添加用户 - 管理中心 - Powered by Jqpress";
+}
+
+<!-- BEGIN PAGE HEADER-->
+<div class="row">
+<div class="col-md-12">
+    <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+    <h3 class="page-title">
+        @(Model.user.UserId > 0 ? "编辑" : "添加")用户 
+    </h3>
+    <!-- END PAGE TITLE & BREADCRUMB-->
+</div>
+</div>
+<!-- END PAGE HEADER-->
+
+
+
+ @Html.JPartial("_Notifications")
+
+
+<div class="portlet-body form">
+    <form name="form1" method="post" action="@Url.Action("Save", "User")"  >
+    <input type="hidden"  id="UserId" name="UserId" value="@Model.user.UserId" />
+
+    <div class="form-body">
+                           
+        <div class="form-group">
+                 <label  >角色：</label>
+                 @Html.DropDownList("Role", Model.RolesCateItem, new { @class = "form-control input-medium" })
+        </div>
+        <style>
+         label{width:70px;}
+        </style>
+        <div class="form-group">
+        <label  >用户名：</label>
+        <input type="text"  id="UserName" name="UserName" value="@Model.user.UserName"  class="form-control"  style="width:20%"/>(字母,数字,中文,连字符)
+        </div>
+        <div class="form-group">
+        <label >昵称：</label>
+        <input type="text" id="NickName" name="NickName" value="@Model.user.NickName"  class="form-control"   style="width:20%"/>
+        </div>
+        <div class="form-group">
+        <label  >密码：<span class="small gray"></span></label>
+        <input type="password" value="" id="Password" name="Password" class="form-control"  style="width:20%"/>
+        </div>
+
+        <div class="form-group">
+        <label >确认密码：<span class="small gray"></span></label>
+        <input type="password" value="" id="Password2" name="Password2" class="form-control"  style="width:20%"/>
+        </div>
+
+        <div class="form-group" >
+           <label  >邮箱：</label>
+        <input type="text"  id="Email" name="Email"  value="@Model.user.Email"  class="form-control"  style="width:20%"/>
+        </div>
+  
+                         
+        <div class="form-group">
+            <button type="submit" name="btnEdit"  onclick="return checkForm();" id="btnEdit" class="btn btn-primary" >@(Model.user.UserId > 0 ? "修改" : "添加")</button>
+            <button type="button" class="btn btn-default" onclick="history.go(-1)" >返回 </button>
+        </div>
+
+
+    </div>
+                        
+    </form>
+
+
+</div>

@@ -1,0 +1,167 @@
+﻿@using Jqpress.Framework.Mvc
+@model Jqpress.Web.Areas.Admin.Models.TagListModel
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "标签管理 - 管理中心 - Powered by Jqpress";
+}
+<script type="text/javascript">
+    //修改操作
+    function getJsonData(id) {
+        $.getJSON('@Url.Action("Edit", "Tag",new{dt=DateTime.Now})',{id:id}, function (json) {
+            $("#CateName").val(json.CateName);
+            $("#PageName").val(json.PageName);
+            $("#Description").val(json.Description);
+            $("#SortNum").val(json.SortNum);
+
+
+            $("select#ParentId option[value='" + json.ParentId + "']").attr('selected', 'true');
+            $("#TagId").val(json.TagId);
+            $("#submit").val("修改");
+            $(".formzone").show("slow");
+        });
+    }
+    //删除操作
+    function deleteRow(id) {
+        if (confirm('删除分类不会删除所属的文章,确定要删除吗?')) {
+            $.ajax({
+                url: '@Url.Action("Delete", "Tag",new{dt=DateTime.Now})',
+                data:{id:id},
+                success: function (msg) {
+                    $("#row" + id).fadeOut(500);
+                }
+            });
+        }
+    }
+
+    $(document).ready(function () {
+
+        //初始化表单
+        function InitForm() {
+            $(':text').each(function (i, n) { n.value = ''; });
+            $("select#ParentId option[value='0']").attr('selected', 'true');
+
+            $('#TagId').each(function (i, n) { n.value = ''; });
+            $("#submit").val("添加");
+        }
+
+        //添加事件
+        $("#addbtn").click(function () {
+            if ($(".formzone").css("display") == "none") {
+                InitForm();
+                $(".formzone").show("slow");
+            } else {
+                $(".formzone").hide("slow");
+            }
+        });
+        //绑定删除事件
+        $(".row td .delete").bind("click", function () { deleteRow(this.id); });
+        //绑定修改事件
+        $(".row td .edit").bind("click", function () { getJsonData(this.id) });
+
+        //取消事件
+        $("#btncancle").click(function () {
+            if ($(".formzone").css("display") == "none") {
+                InitForm();
+                $(".formzone").show("slow");
+            } else {
+                $(".formzone").hide("slow");
+            }
+        });
+        //保存事件
+        $('#form1').submit(function () {
+            if ($("#CateName").val() == '') { return; }
+            var act = "add";
+            if ($("#TagId").val() != '') { act = "update"; }
+
+            jQuery.ajax({
+                type: 'POST', // 设置请求类型为 ‘POST’，默认为 ‘GET’
+                url: '@Url.Action("Save", "Tag",new{dt=DateTime.Now})', //
+                data: $('#form1').serialize(), // 从表单中获取数据  
+                beforeSend: function () { },
+                error: function (XMLHttpRequest, textStatus, errorThrown) { alert(textStatus); },
+                dataType: 'json',
+                success: function (data) {
+                    var _tr = "<tr class='row' style='background:#FFECC6' id='row" + data.TagId + "'>";
+                    _tr += "<td>" + data.SortNum + "</td>";
+                    _tr += " <td><a href='" + data.Url + "' >" + data.CateName + "</a></td>";
+                    _tr += " <td>" + data.Description + "</td>";
+                    _tr += " <td>" + data.PostCount + "</td>";
+                    _tr += "<td><a class='edit' href='javascript:getJsonData(" + data.TagId + ")' id='" + data.TagId + "'>编辑</a> <a class='delete' href='javascript:deleteRow(" + data.TagId + ")'  id='" + data.TagId + "'>删除</a></td>";
+                    _tr += "</tr>";
+                    InitForm();
+                    $(".formzone").hide("slow");
+                    if (act == "update") {
+                        $("#row" + data.TagId).replaceWith(_tr);
+                    } else {
+                        if (data.ParentId > 0) {
+                            $("#row" + data.ParentId).after(_tr);
+                        } else {
+                            $(".tbl1").append(_tr);
+                        }
+                    }
+
+                }
+            });
+            return false;
+        });
+
+
+    });
+ 
+</script>
+
+<div class="body_nav">
+		<div class="left">标签管理</div>
+			<div class="right" style="padding-top:6px;">
+			  <a class="addbtn" href="javascript:void(0)" id="addbtn">添加标签</a></div>
+ </div>
+
+ <form id="form1" action="">
+<div class="formzone" style="display:none;">
+    <input type="hidden" id="TagId" name="TagId" value="" />
+    <div><label class="label" for="CateName">名称:</label>
+    <input type="text" id="CateName" name="CateName"   width="150"  class="solid-text"/>
+    <span>这将是它在站点上显示的名字</span>
+    </div>
+   
+    <div><label class="label"  for="PageName">别名:<span  class="gray small"  ></span></label>
+    <input type="text" id="PageName" name="PageName"   width="150"  class="solid-text"/>
+    <span>“别名”是对于 URL 友好的一个别称。它通常为小写并且只能包含字母，中文，数字和连字符（-）。</span>
+    </div>
+    <div><label class="label"  for="Description">描述:</label>
+    <input type="text" id="Description" name="Description"   width="300"  class="solid-text"/>
+    <span>描述不一定会显示，但是他是很友好的提示。</span>
+    </div>
+    <div><label class="label" for="SortNum">排序:</label>
+    <input type="text" id="SortNum" name="SortNum"  width="30" class="solid-text"/>
+    <span class="m_desc">越小越靠前</span>
+    </div>
+    <div>
+    <input type="submit" class="button" id="submit" value="添加" />
+    <input type="button" class="button" id="btncancle" value="取消" />
+    </div>
+</div>
+
+<table width="100%" class="tbl1">
+        <tr class="header">
+            <td>排序</td>
+            <td>名称</td>
+            <td style="width:40%;">描述</td>
+            <td>文章</td>
+            <td>操作</td>
+        </tr>
+        @foreach(var item in Model.TagList){
+                <tr class="row" id="row@(item.TagId)">
+                    <td>@item.SortNum</td>
+                    <td><a href="@item.Url" > @item.CateName</a></td>
+                    <td>@item.Description</td>
+                    <td>@item.PostCount</td>
+                    <td><a class="edit" href="javascript:void(0)" id="@item.TagId">编辑</a> <a class="delete" href="javascript:void(0)" id="@item.TagId">删除</a></td>
+                </tr>
+         }
+    </table>
+
+<div id="pager"><ul class="pagination">@Html.Pager(Model.PageList).ShowIndividualPages(true)</ul> </div>
+
+
+</form>

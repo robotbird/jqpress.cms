@@ -1,0 +1,49 @@
+﻿@using Jqpress.Framework.Mvc
+@using Jqpress.Framework.Web
+@using Jqpress.Core.Template
+
+@{
+    Layout = "_Layout.cshtml";
+}
+@{
+    var page = new JTag.Cate { pagename = ViewBag.PageName }.Page;
+}
+<section class="breadcrumbs">
+    <div class="container">
+        <div class="page-header">
+            <div class="row">
+                <div class="span8">
+                    <div style="padding-top:5px;font-size:16px;"><a href="/">首页</a> &nbsp;&rsaquo;&rsaquo;&nbsp; @page.CateName</div>
+                </div>
+               
+            </div>
+        </div>
+    </div>
+</section>
+<!--container-->
+
+
+<section id="container">
+    <div class="container">
+        <div class="row">
+            <section id="page-sidebar" class="pull-right" style="border: 1px solid #eeeeee; width:820px; padding:20px;">
+
+               <article class="blog-post">
+                    <div class="row">
+                        <div class="span8">
+                            <h3 class="post-title" style="text-align:center">@page.CateName</h3>
+                            <div class="post-content" style="min-height:300px">
+                                @Html.Raw(page.Description)
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+   
+            </section>
+            <!--sidebar-->
+           @Html.Action("SiderBar", "Home")
+        </div>
+    </div>
+</section>
+

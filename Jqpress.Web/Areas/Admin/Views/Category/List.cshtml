@@ -1,0 +1,58 @@
+﻿@using Jqpress.Framework.Mvc
+@model Jqpress.Web.Areas.Admin.Models.CateListModel
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "分类管理 - 管理中心 - Powered by Jqpress";
+}
+
+<!-- BEGIN PAGE HEADER-->
+<div class="row">
+<div class="col-md-12">
+    <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+    <h3 class="page-title">
+        分类 <small><a href="@Url.Action("Edit","Category")" class="btn btn-sm btn-link">添加 <i class="icon-plus"></i></a></small>
+    </h3>
+    <!-- END PAGE TITLE & BREADCRUMB-->
+</div>
+</div>
+<!-- END PAGE HEADER-->
+    @Html.JPartial("_Notifications")
+ <div class="portlet-body">
+          <table class="table table-striped table-bordered table-hover" >
+            <thead>
+                <tr>
+			    <th>名称</th>
+                <th>排序</th>
+			    <th>内容数量</th>
+			    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach(var item in Model.CateList)
+                {
+                    <tr class="odd gradeX" id="row@(item.CategoryId)" >
+                        <td>@item.TreeChar <a href="@item.Url" > @item.CateName</a></td>
+                        <td>@item.SortNum</td>
+                        <td>@item.PostCount</td>
+                        <td><a class="edit" href="edit?id=@item.CategoryId">编辑</a> <a class="delete" onclick="return confirm('删除分类不删除对应的文章,确定要删除吗?');" href="delete?id=@item.CategoryId">删除</a></td>
+                    </tr>
+                }
+
+            </tbody>
+          </table>
+</div>
+
+
+
+
+   <script type="text/javascript" src="/assets/plugins/data-tables/jquery.dataTables.js"></script>
+   <script type="text/javascript" src="/assets/plugins/data-tables/DT_bootstrap.js"></script>
+      <script src="/assets/scripts/app.js"></script>
+   <script src="/assets/scripts/table-managed.js"></script>     
+   <script>
+       jQuery(document).ready(function () {
+           App.init();
+           TableManaged.init();
+       });
+   </script>

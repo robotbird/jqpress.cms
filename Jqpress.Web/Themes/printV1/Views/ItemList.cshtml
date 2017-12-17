@@ -1,0 +1,51 @@
+﻿@using Jqpress.Framework.Mvc
+@model Jqpress.Web.Models.PostListModel
+@using Jqpress.Framework.Mvc
+
+@{
+    Layout = "_Layout.cshtml";
+}
+<section class="breadcrumbs">
+    <div class="container">
+        <div class="page-header">
+            <div class="row">
+                <div class="span8">
+                    <div style="padding-top:5px;font-size:16px;"><a href="/">首页</a> &nbsp;&rsaquo;&rsaquo;&nbsp; @Model.Category.CateName</div>
+                </div>
+               
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<section id="container">
+    <div class="container">
+        <div class="row">
+            <section id="page-sidebar" class="pull-right" style="border: 1px solid #eeeeee; width:820px; padding:20px;">
+
+      @foreach(var item in Model.PostList)
+        {
+          <article  >
+                
+               <div>
+               <ul>
+               <li>
+               <a href="@item.Url"> @item.Title </a>
+
+               <span style="float:right">@item.UpdateTime</span>
+               </li>
+              </ul>
+               </div>
+            </article>
+        }
+                <!--pagination-->
+       <div id="pager" class= "pager">@Html.Pager(Model.PageList).ShowTotalSummary(true).ShowIndividualPages(true)</div>
+            </section>
+            <!--sidebar-->
+           @Html.Action("SiderBar", "Home")
+        </div>
+    </div>
+</section>
+

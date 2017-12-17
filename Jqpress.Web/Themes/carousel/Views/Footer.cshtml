@@ -1,0 +1,19 @@
+﻿@using Jqpress.Core.Template
+@{
+    var site = new JTag.Site();      
+    Layout = null;
+}
+
+    <!--footer-->
+<footer id="footer-menu">
+    <div class="container">
+        <div class="row">
+            <div  style="text-align:center;">
+                @Html.Raw(site.FooterHtml)
+                <p>技术支持：<a href="http://www.jqpress.com">机器鸟cms</a> </p>
+            </div>
+             
+            
+        </div>
+    </div>
+</footer>

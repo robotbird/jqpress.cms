@@ -1,0 +1,124 @@
+﻿@using Jqpress.Framework.Mvc
+@model Jqpress.Web.Areas.Admin.Models.FilesModel
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "文章列表 - 管理中心 - Powered by Jqpress";
+}
+
+    <link rel="stylesheet" type="text/css" href="/assets/plugins/bootstrap-fileupload/bootstrap-fileupload.css" />
+
+  <style type="text/css">  
+ body{color:#000;font-family:'微软雅黑',sans-serif;padding:0px !important;margin:0px !important;font-size:13px;direction:ltr;}
+ a{text-shadow:none !important;color:#0d638f;}
+ a{color:#428bca;text-decoration:none;}
+ a,a:focus,a:hover,a:active{outline:0;}
+ li{ list-style:none;}
+ .imgright{width:200px;float:right;border:0px solid gray;margin-top:0px;}
+ .imgright p{margin:10px 0 0 10px;}
+ .imgleft{float:left;}
+ .upfile{margin:0px;padding:0px}
+ .upfile li{float:left;margin:5px 3px 25px 0;width:90px;height:88px;border:0px solid #ccc;text-align:center;}
+ .upfile .current{background:#f3f9f5;}
+ .upfile p{margin:3px 0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;line-height:150%;}
+ .upfile a{width:48px;height:48px;}
+ .upfile img{border:0px solid #ccc;}
+ .upfile .delete{position:relative;width:20px;height:20px;top:-92px;right:-40px;border:0px solid gray;color:Gray;font-size:10px;}
+</style>
+   <!-- END THEME STYLES -->
+   
+
+<div style=" margin:0px auto; border-bottom:1px #ccc solid; height:50px">
+<div style="float:left">当前位置：@Html.Raw(Model.PathUrl) </div>
+
+<div style=" float:right; margin-right:50px">
+<form name="fileForm"  target="_self"  action="@Url.Action("Upload", "Files", new { path = ViewBag.path })" method="post"  id="fileForm" enctype="multipart/form-data">
+
+ <button type="submit" name="btnEdit"  class="btn btn-primary" style="float:right" >上传</button>
+
+<div class="fileupload fileupload-new" data-provides="fileupload" style="float:right">
+        <span class="btn btn-default btn-file">
+        <span class="fileupload-new"><i class="icon-paper-clip"></i> 选择文件</span>
+        <span class="fileupload-exists"><i class="icon-undo"></i> 重新选择</span>
+        <input type="file" class="default" name="FileUpload" id="FileUpload" onchange="checkSize(this)" />
+        </span>
+        <span class="fileupload-preview" style="margin-left:5px;"></span>
+        <a href="#" class="close fileupload-exists" data-dismiss="fileupload" style="float: none; margin-left:5px;"></a>
+        </div>
+</form>
+</div>
+
+</div>
+
+<div class="imgleft" >
+    <ul class="upfile">
+        @foreach (var d in Model.FoldList)
+        {
+        <li>
+            <a href="@ViewBag.UrlPath?path=@d.FoldPath/@d.FoldName" title="点击打开此文件夹"><img src="/content/images/folder.png"  alt="点击打开此文件夹" width="48" height="48"/></a>
+             <p class="small">
+                <span title="文件夹:@d.FoldName" >@d.FoldName</span>
+                <br />
+                <span class="gray">
+                @d.FileSystemInfosLength 个文件
+                </span>
+             </p>
+        <a class="delete" href="/admin/files/DeleteFile?path=@ViewBag.path/@d.FoldName&url=@ViewBag.path"  title="删除" onclick=" return confirm('确定要删除 @d.FoldName  吗?');">X</a>
+        </li>
+        } 
+
+     @foreach (var f in Model.FileList)
+     {
+        <li>
+             <a href="@f.FileUrl" target="_blank" onclick=" return returnValue('@f.FileUrl','@f.Extension');">
+                <img src="@f.FileUrl" width="48" height="48"/>
+             </a>
+                <p class="small">
+                <span title="@f.FileName" >@f.FileName</span>
+                <br />
+                <span class="gray">@f.FileLength</span>
+                </p>
+        <a class="delete" href="/admin/files/DeleteFile?path=@f.FilePath&url=@ViewBag.path"  title="删除" onclick=" return confirm('确定要删除 @f.FileName  吗?');">X</a>
+        </li>
+        
+     } 
+    
+    @if (Model.FileList.Count == 0 && Model.FoldList.Count ==0)
+    { <p>还没有上传任何附件!</p> }
+    </ul>
+ 
+         <div style="clear:both;text-align:center;">
+        @if (Model.FileList.Count == 0)
+        {
+          @Html.Pager(Model.FoldPageList)
+        } 
+          </div>
+</div>
+
+ 
+<script type="text/javascript" src="/assets/plugins/bootstrap-fileupload/bootstrap-fileupload.js"></script>
+
+<script type="text/javascript">
+
+    function returnValue(fileUrl, fileExtension) {
+
+        if (window.opener != undefined) {
+            window.opener.document.getElementById("src").value = fileUrl;
+            window.close();
+            return false;
+        } else {
+            parent.addFileToEditor(fileUrl, fileExtension);
+            parent.modalClose();
+            return false;
+        }
+
+    }
+
+    function checkSize(file) {
+        var size = file.files[0].size / 1024;
+        if (size > 1000) {
+            alert("图片大小不能超过1M");
+            $(file).val("");
+        }
+    }
+
+</script>
