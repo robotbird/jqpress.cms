@@ -1,6 +1,8 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26228.4
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jqpress.Web", "Jqpress.Web\Jqpress.Web.csproj", "{3E0BB87C-6E43-431A-94D4-3883EC5BCBD5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jqpress.Framework", "Jqpress.Framework\Jqpress.Framework.csproj", "{24EF6952-D3FD-4C8B-B8FF-5D5E783F68A0}"

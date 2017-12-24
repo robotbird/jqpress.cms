@@ -6,8 +6,8 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using Jqpress.Framework.Configuration;
-//using System.Data.SQLite;
-using Mono.Data.Sqlite;
+using System.Data.SQLite;
+//using Mono.Data.Sqlite;
 
 namespace Jqpress.Framework.DbProvider
 {
@@ -15,16 +15,12 @@ namespace Jqpress.Framework.DbProvider
     {
         private static string _mdbpath = System.Web.HttpContext.Current.Server.MapPath(ConfigHelper.SitePath + ConfigHelper.DbConnection);//for windows
        // private static string _mdbpath = ConfigHelper.SitePath + ConfigHelper.DbConnection;//for linux
-        //public static string ConnectionString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + _mdbpath;
         public static string ConnectionString = "Data Source=" + _mdbpath;//for sqlite & windows
-        //public static string ConnectionString = @"Data Source=H:\code\net\Jqpress.cms\DbToEn\bin\Debug\App_Data\Jqpress.db";//for sqlite & windows
         //public static string ConnectionString = "URI=file:" + _mdbpath + ",version=3";//for sqlite & linux
 
         //连接数据库字符串。
-       // private readonly string sqlconnection = ConfigurationManager.ConnectionStrings["Lee_Creek"].ConnectionString;
         private readonly string sqlconnection = "";
-       // public readonly string mysqlconnectionString = @"server=127.0.0.1;database=test;uid=renfb;pwd=123456;charset='gbk'";
-        //获取Sql Server的连接数据库对象。SqlConnection
+        //获取access的连接数据库对象。SqlConnection
 
         //public OleDbConnection OpenConnection()
         //{
@@ -33,21 +29,19 @@ namespace Jqpress.Framework.DbProvider
         //     return conn;
         //}
 
-        //public SQLiteConnection OpenConnection()// for sqlite & windows
-        //{
-        //    SQLiteConnection conn = new SQLiteConnection(ConnectionString);
-        //    conn.Open();
-        //    return conn;
-        //}
-
-        public SqliteConnection OpenConnection()// for sqlite & liunx
+        public SQLiteConnection OpenConnection()// for sqlite & windows
         {
-            // System.Web.HttpContext.Current.Response.Write(ConnectionString);
-            // System.Web.HttpContext.Current.Response.End();
-            SqliteConnection conn = new SqliteConnection(ConnectionString);
+            SQLiteConnection conn = new SQLiteConnection(ConnectionString);
             conn.Open();
             return conn;
         }
+
+        //public SqliteConnection OpenConnection()// for sqlite & liunx
+        //{
+        //    SqliteConnection conn = new SqliteConnection(ConnectionString);
+        //    conn.Open();
+        //    return conn;
+        //}
 
       
         public SqlConnection OpenConnectionSql()

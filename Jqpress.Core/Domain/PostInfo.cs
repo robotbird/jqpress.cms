@@ -422,9 +422,5 @@ namespace Jqpress.Core.Domain
         /// 时间
         /// </summary>更新
         public DateTime UpdateTime { get; set; }
-        /// <summary>
-        /// 排序字段
-        /// </summary>
-        public int SortNum { get; set; }
     }
 }

@@ -120,13 +120,11 @@ namespace Jqpress.Web.Areas.Admin.Controllers
             string basepath = PressRequest.GetQueryString("path");
             if (file != null)
             {
-                var ext = FileHelper.GetFileExtName(file.FileName);
-                var filename = string.Format("{0:yyyyMMddHHmmssffff}", DateTime.Now) + ext;  
                 if (string.IsNullOrEmpty(urlpath))
                 {
                     urlpath = rootpath;
                 }
-                var savepath = Server.MapPath(urlpath + "/" + filename);
+                var savepath = Server.MapPath(urlpath + "/" + file.FileName);
 
                 if (FileHelper.FileExists(savepath))
                 {

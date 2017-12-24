@@ -23,11 +23,11 @@ namespace Jqpress.Core.Repositories.Repository
             CheckPageName(post);
             string cmdText = string.Format(@"insert into [{0}posts]
                                 (
-                               [CategoryId],[TitlePic],[Title],[Summary],[PostContent],[PageName],[UserId],[CommentStatus],[CommentCount],[ViewCount],[Tag],[UrlFormat],[Template],[Recommend],[Status],[TopStatus],[HomeStatus],[PostTime],[UpdateTime,[SortNum]
+                               [CategoryId],[TitlePic],[Title],[Summary],[PostContent],[PageName],[UserId],[CommentStatus],[CommentCount],[ViewCount],[Tag],[UrlFormat],[Template],[Recommend],[Status],[TopStatus],[HomeStatus],[PostTime],[UpdateTime]
                                 )
                                 values
                                 (
-                                @CategoryId,@TitlePic,@Title,@Summary,@PostContent,@PageName,@UserId,@CommentStatus,@CommentCount,@ViewCount,@Tag,@UrlFormat,@Template,@Recommend,@Status,@TopStatus,@HomeStatus,@PostTime,@UpdateTime,@SortNum
+                                @CategoryId,@TitlePic,@Title,@Summary,@PostContent,@PageName,@UserId,@CommentStatus,@CommentCount,@ViewCount,@Tag,@UrlFormat,@Template,@Recommend,@Status,@TopStatus,@HomeStatus,@PostTime,@UpdateTime
                                 )", ConfigHelper.Tableprefix);
 
             using(var conn = new DapperHelper().OpenConnection())
@@ -62,8 +62,7 @@ namespace Jqpress.Core.Repositories.Repository
                                        [TopStatus]=@TopStatus,
                                        [HomeStatus]=@HomeStatus,
                                        [PostTime]=@PostTime,
-                                       [UpdateTime]=@UpdateTime,
-                                       [SortNum]=@SortNum
+                                       [UpdateTime]=@UpdateTime
                                    where [PostId]=@PostId", ConfigHelper.Tableprefix);
 
 
@@ -151,7 +150,7 @@ namespace Jqpress.Core.Repositories.Repository
         /// <param name="enddate"></param>
         /// <param name="keyword"></param>
         /// <returns></returns>
-        public virtual List<PostInfo> GetPostList(int pageSize, int pageIndex, out int recordCount, string categoryId, int tagId, int userId, int recommend, int status, int topstatus, int PostStatus,int HomeStatus, string begindate, string enddate, string keyword)
+        public virtual List<PostInfo> GetPostList(int pageSize, int pageIndex, out int recordCount, string categoryId, int tagId, int userId, int recommend, int status, int topstatus, int PostStatus, string begindate, string enddate, string keyword)
         {
             string condition = " 1=1 ";
 
@@ -186,11 +185,6 @@ namespace Jqpress.Core.Repositories.Repository
                 condition += " and PostStatus=" + PostStatus;
             }
 
-            if (HomeStatus != -1)
-            {
-                condition += " and HomeStatus=" + HomeStatus;
-            }
-
             if (!string.IsNullOrEmpty(begindate))
             {
                 condition += " and PostTime>=#" + begindate + "#";
@@ -204,7 +198,7 @@ namespace Jqpress.Core.Repositories.Repository
             {
                 condition += string.Format(" and (summary like '%{0}%' or title like '%{0}%'  )", keyword);
             }
-            recordCount = 0;
+
             using (var conn = new DapperHelper().OpenConnection())
             {
                 string cmdTotalRecord = "select count(1) from [" + ConfigHelper.Tableprefix + "posts] where " + condition;
@@ -214,7 +208,6 @@ namespace Jqpress.Core.Repositories.Repository
                 var list = conn.Query<PostInfo>(cmdText, null);
                 return list.ToList();
             }
-
         }
         /// <summary>
         /// 获取相关文章

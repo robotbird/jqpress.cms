@@ -101,7 +101,7 @@ namespace Jqpress.Core.Template
                    }
                    if (HomeStatus == 1) 
                    {
-                       list = list.FindAll(post => post.HomeStatus == 1).OrderBy(post=>post.SortNum).ToList();
+                       list = list.FindAll(post=>post.HomeStatus==1);
                    }
 
                    return list;

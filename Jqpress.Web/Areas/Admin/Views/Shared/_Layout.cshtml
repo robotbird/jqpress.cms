@@ -172,14 +172,14 @@
                 <ul class="sub-menu">
                    @foreach (var childitem in item.ChildNodes)
                    {
-                       url = Url.Action(childitem.ActionName, childitem.ControllerName) + childitem.Param ;
+                       url = Url.Action(childitem.ActionName, childitem.ControllerName);
                        var childliclass = "";
                        if (childitem.ControllerName == ViewContext.RouteData.Values["controller"].ToString().ToLower() && childitem.ActionName == ViewContext.RouteData.Values["action"].ToString().ToLower())
                        {
                            childliclass = "class=active";
                        }
                        
-                   <li @childliclass><a href="@Html.Raw(url)">@childitem.Title</a></li>
+                   <li @childliclass><a href="@url">@childitem.Title</a></li>
 
                    }
                </ul>

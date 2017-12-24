@@ -21,8 +21,6 @@ namespace Jqpress.Core.Configuration
 
         public string ActionName { get; set; }
 
-        public string Param { get; set; }
-
         public RouteValueDictionary RouteValues { get; set; }
 
         public string Url { get; set; }

@@ -31,7 +31,7 @@ namespace Jqpress.Core.Repositories.IRepository
         /// <param name="enddate"></param>
         /// <param name="keyword"></param>
         /// <returns></returns>
-         List<PostInfo> GetPostList(int pageSize, int pageIndex, out int recordCount, string categoryId, int tagId, int userId, int recommend, int status, int topstatus, int PostStatus,int HomeStatus, string begindate, string enddate, string keyword);
+         List<PostInfo> GetPostList(int pageSize, int pageIndex, out int recordCount, string categoryId, int tagId, int userId, int recommend, int status, int topstatus, int PostStatus, string begindate, string enddate, string keyword);
         /// <summary>
         /// 获取相关文章
         /// </summary>

@@ -74,25 +74,17 @@ namespace Jqpress.Core.Configuration
             //routes, url
             string controllerName = GetStringValueFromAttribute(xmlNode, "controller");
             string actionName = GetStringValueFromAttribute(xmlNode, "action");
-
-            string param = GetStringValueFromAttribute(xmlNode, "param");
             string url = GetStringValueFromAttribute(xmlNode, "url");
             if (!string.IsNullOrEmpty(controllerName) && !string.IsNullOrEmpty(actionName))
             {
                 siteMapNode.ControllerName = controllerName;
                 siteMapNode.ActionName = actionName;
-                
 
                 siteMapNode.RouteValues = new RouteValueDictionary()
                                           {
-                                              {"area", "Admin"},
-
+                                              {"area", "Admin"}
                                           };
             }
-                if(!string.IsNullOrEmpty(param))
-                {
-                  siteMapNode.Param = param;
-                }
             else if (!string.IsNullOrEmpty(url))
             {
                 siteMapNode.Url = url;

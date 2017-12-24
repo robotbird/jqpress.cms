@@ -162,7 +162,7 @@ namespace Jqpress.Web.Controllers
                 if (cateid > 0)
                     pageIndex = pageIndex + 1;
                 var cateids =categoryId+","+ _categoryService.GetCategoryList().FindAll(c => c.ParentId == categoryId).Aggregate(string.Empty, (current, t) => current + (t.CategoryId + ",")).TrimEnd(',');
-                var postlist = _postService.GetPostPageList(pageSize, pageIndex, out count, cateids.TrimEnd(','), tagid, -1, -1, -1, -1, -1,-1, "", "", "");
+                var postlist = _postService.GetPostPageList(pageSize, pageIndex, out count, cateids.TrimEnd(','), tagid, -1, -1, -1, -1, -1, "", "", "");
                 model.PageList.LoadPagedList(postlist);
                 model.PostList = (List<PostInfo>)postlist;
             }
@@ -218,7 +218,7 @@ namespace Jqpress.Web.Controllers
                 int tagid = PressRequest.GetQueryInt("tagid", -1);
                 if (cateid > 0)
                     pageIndex = pageIndex + 1;
-                var postlist = _postService.GetPostPageList(pageSize, pageIndex, out count, cateid.ToString(), tagId, -1, -1, -1, -1, -1,-1, "", "", "");
+                var postlist = _postService.GetPostPageList(pageSize, pageIndex, out count, cateid.ToString(), tagId, -1, -1, -1, -1, -1, "", "", "");
                 model.PageList.LoadPagedList(postlist);
                 model.PostList = (List<PostInfo>)postlist;
 

@@ -51,14 +51,13 @@ namespace Jqpress.Web.Areas.Admin.Controllers
             int pageIndex = PressRequest.GetInt("page", 1);
             int cateid = PressRequest.GetQueryInt("cateid", -1);
             int tagid = PressRequest.GetQueryInt("tagid", -1);
-            int home = PressRequest.GetQueryInt("home", -1);
 
             catelist.Add(new CategoryInfo() { CateName="全部",CategoryId=-1});
             model.CateSelectItem = catelist.ConvertAll(c => new SelectListItem { Text = c.CateName, Value = c.CategoryId.ToString(), Selected = c.CategoryId == cateid });
 
             if (cateid > 0)
                 pageIndex = pageIndex + 1;
-            var postlist = _postService.GetPostPageList(pageSize, pageIndex, out count, categoryId.ToString(), tagid, -1, -1, -1, -1, -1,home, "", "", keyword);
+            var postlist = _postService.GetPostPageList(pageSize, pageIndex, out count, categoryId.ToString(), tagid, -1, -1, -1, -1, -1, "", "", keyword);
             model.PageList.LoadPagedList(postlist);
             model.PostList = (List<PostInfo>)postlist;
             return View(model);
@@ -155,13 +154,12 @@ namespace Jqpress.Web.Areas.Admin.Controllers
              var file = Request.Files["TitlePic"];
              var action = "edit";
              if (p.PostId > 0) action += "?id=" + p.PostId;
+            //todo:上传要改成自动生成文件名称，不能是中文
             if (!string.IsNullOrEmpty(file.FileName))
             {
-                var ext = FileHelper.GetFileExtName(file.FileName);
-                var filename = string.Format("{0:yyyyMMddHHmmssffff}", DateTime.Now)+ext;  
-                var orignpath = rootpath + "/" + filename;
+                var orignpath = rootpath + "/" + file.FileName;
                 var savepath = Server.MapPath(orignpath);
-                
+                var ext = FileHelper.GetFileExtName(file.FileName);
                 var thumbnail = orignpath.Replace(ext, "_270X200" + ext);
                 file.SaveAs(savepath);
                 try

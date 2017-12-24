@@ -461,7 +461,7 @@ namespace Jqpress.Core.XmlRpc
             }
             PostService _postService = new PostService();
 
-            List<PostInfo> posts = new PostService().GetPostList(numberOfPosts, "", userid, -1, -1, -1, -1,-1);
+            List<PostInfo> posts = new PostService().GetPostList(numberOfPosts, "", userid, -1, -1, -1, -1);
 
             foreach (PostInfo post in posts)
             {
