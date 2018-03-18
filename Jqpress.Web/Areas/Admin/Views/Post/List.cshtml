@@ -7,13 +7,23 @@
 <script type="text/javascript">
     $(document).ready(function () {
         ///全选
-        $("#checkAll").click(function () {
-            if (this.checked) {
-                $("input[name='chkid']").attr("checked", true);
-            } else {
-                $("input[name='chkid']").attr("checked", false);
-            }
-        });
+        
+jQuery('#sample_1 .group-checkable').change(function () {
+                var set = jQuery(this).attr("data-set");
+                var checked = jQuery(this).is(":checked");
+                jQuery(set).each(function () {
+                    console.log(set);
+                    if (checked) {
+                        $(this).attr("checked", true);
+                    } else {
+                        $(this).attr("checked", false);
+                    }
+                    $(this).parents('tr').toggleClass("active");
+                });
+                jQuery.uniform.update(set);
+
+            });
+
         ///批量操作
         $("#doaction").click(function () {
             var chkid = $("input[name='chkid']");
@@ -78,7 +88,7 @@
                               @foreach (var item in Model.PostList)
                              {
 		                              <tr id="post@(item.PostId)" class="odd gradeX">
-			                            <td><input type="checkbox" name="chkid" value="@item.PostId" /> </td>
+			                            <td><input type="checkbox" class="checkboxes"  name="chkid" value="@item.PostId" /> </td>
 			                            <td>
 			                            [@(new HtmlString(item.Author.Link))]
 			                            @(new HtmlString(item.Link))
