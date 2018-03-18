@@ -89,8 +89,7 @@ namespace Jqpress.Web.Areas.Admin.Controllers
         /// </summary>
         public ActionResult Deletes()
         {
-            //CurrentUser.Role != (int)UserRole.Administrator
-            if (false)
+            if (CurrentUser.Role != (int)UserRole.Administrator)
             {
                 return Content("没有权限");
             }
