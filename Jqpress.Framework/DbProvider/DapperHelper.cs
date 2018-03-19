@@ -6,8 +6,8 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using Jqpress.Framework.Configuration;
-using System.Data.SQLite;
-//using Mono.Data.Sqlite;
+//using System.Data.SQLite;
+using Mono.Data.Sqlite;
 
 namespace Jqpress.Framework.DbProvider
 {
@@ -29,21 +29,21 @@ namespace Jqpress.Framework.DbProvider
         //     return conn;
         //}
 
-        public SQLiteConnection OpenConnection()// for sqlite & windows
-        {
-            SQLiteConnection conn = new SQLiteConnection(ConnectionString);
-            conn.Open();
-            return conn;
-        }
-
-        //public SqliteConnection OpenConnection()// for sqlite & liunx
+        //public SQLiteConnection OpenConnection()// for sqlite & windows
         //{
-        //    SqliteConnection conn = new SqliteConnection(ConnectionString);
+        //    SQLiteConnection conn = new SQLiteConnection(ConnectionString);
         //    conn.Open();
         //    return conn;
         //}
 
-      
+        public SqliteConnection OpenConnection()// for sqlite & liunx
+        {
+            SqliteConnection conn = new SqliteConnection(ConnectionString);
+            conn.Open();
+            return conn;
+        }
+
+
         public SqlConnection OpenConnectionSql()
         {
             SqlConnection connection = new SqlConnection(sqlconnection);
